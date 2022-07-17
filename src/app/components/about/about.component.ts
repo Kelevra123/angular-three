@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import * as THREE from 'three'
 import { LoadingService } from "../../loading.service";
+import { SceneService } from "../../scene.service";
 
 @Component({
   selector: '.about',
@@ -17,7 +18,10 @@ export class AboutComponent implements AfterViewInit{
   }
 
 
-  constructor(private _loadingService: LoadingService) {
+  constructor(
+    private _loadingService: LoadingService,
+    private _sceneService: SceneService
+  ) {
 
   }
 
@@ -25,4 +29,11 @@ export class AboutComponent implements AfterViewInit{
     this._loadingService.canvas(this.canvas)
   }
 
+  onMouseMove($event: MouseEvent) {
+    this._sceneService.onMouseMove($event);
+  }
+
+  onClick($event: MouseEvent) {
+    this._sceneService.onClick($event)
+  }
 }

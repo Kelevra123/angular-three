@@ -3,9 +3,8 @@
 </div>
 <div class="about__exp">
 <!--  <img src="../../assets/plug.jpg" class="about__exp_plug">-->
-  <canvas #canvas class="about__exp_canvas">
-    <div class="table-canvas"></div>
-    <div class="walls-canvas"></div>
-    <div class="curtains-canvas"></div>
+  <canvas #canvas (mousemove)="onMouseMove($event)" (click)="onClick($event)" class="about__exp_canvas">
+    <video src=""></video>
+    <video src=""></video>
   </canvas>
 </div>

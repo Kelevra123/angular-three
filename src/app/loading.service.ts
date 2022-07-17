@@ -4,13 +4,25 @@ import { SceneService } from "./scene.service";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { HelperEnum } from "./components/helper.enum";
-import { GltfPath, meshData } from "./components/canvas-members/data";
+import {
+  GltfData,
+  meshData,
+  PhotoData,
+  photoData,
+  SavedMaterial
+} from "./components/canvas-members/data";
+import { MeshBasicMaterial } from "three";
 
 @Injectable()
 export class LoadingService {
   private meshContainer: Array<THREE.Object3D> = [];
-  private textureContainer: Array<THREE.Texture | THREE.MeshBasicMaterial> = [];
-  private data: any = null
+  private materialContainer: SavedMaterial | any = {};
+
+  //_Data
+  private data: Array<GltfData>;
+  private photoData: Array<PhotoData>;
+
+  private activeMeshes: any = {}
 
   private _scene: THREE.Scene = new THREE.Scene();
   private _canvas: any = null;
@@ -47,23 +59,67 @@ export class LoadingService {
     this._dracoLoader.setDecoderPath('../../assets/draco/');
     this._gltfLoader.setDRACOLoader(this._dracoLoader);
     this.data = meshData
+    this.photoData = photoData
     this.loadMeshData();
+    this.loadPhotoData()
   }
 
-  private loadMeshData() {
-    this.data.forEach((member: GltfPath) => {
-      const texture = this.textureLoader.load(member.texture);
-      texture.flipY = false;
+  private loadMeshData(): void {
+    this.data.forEach((obj: GltfData): void => {
+        const texture = this.textureLoader.load(obj.texture);
+        texture.flipY = false;
 
-      const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ map: texture })
+        const material: THREE.MeshBasicMaterial = new THREE.MeshBasicMaterial({ map: texture })
 
-      if (member.textureName) {
-        material.name = member.textureName
-        this.addToTexture(material)
+        if (obj.textureName) {
+          material.name = obj.textureName
+          this.addToMaterial(material, obj.textureName)
+        }
+        if (obj.gltf.length !== 0)
+        {
+          this.gltfLoader.load(obj.gltf,
+            (gltf): void => this.fetchChildFromGLTF(gltf, material, obj))
+        }
+    })
+  }
+
+  private loadPhotoData(): void {
+    // Combine Materials
+    const photoMaterials: any = {};
+
+    this.photoData.forEach((data: any) =>
+    {
+      const matContainer: any = {}
+
+      for (let key in data.texture) {
+        const currentTexture = this.textureLoader.load(data.texture[key])
+        currentTexture.flipY = false;
+
+        const currentMaterial = new MeshBasicMaterial({map: currentTexture});
+        matContainer[key] = currentMaterial;
       }
 
-      this.gltfLoader.load(member.gltf,
-        (gltf) => this.fetchChildFromGLTF(gltf, material))
+      photoMaterials[data.id] = matContainer;
+    })
+
+    // Add materials to gltf
+    this.photoData.forEach(data => {
+
+      this.gltfLoader.load(data.gltf,
+        (gltf): void => {
+          gltf.scene.traverse((child: THREE.Mesh | any) => {
+
+            if (child.type === HelperEnum.MESH)
+            {
+              const name = child.name
+              child.material = photoMaterials[data.id][name]
+
+              this.addToScene(child)
+            }
+
+          })
+        })
+
     })
   }
 
@@ -71,11 +127,22 @@ export class LoadingService {
     this._canvas = canvas;
   }
 
-  public fetchChildFromGLTF(gltf: GLTF, material: THREE.MeshBasicMaterial): void {
-    gltf.scene.traverse((child: THREE.Mesh | any) => {
+  public fetchChildFromGLTF(gltf: GLTF, material: THREE.MeshBasicMaterial, obj?: GltfData): void {
+    if (obj?.handleMeshes && obj?.textureName)
+    {
+      this.activeMeshes[obj.textureName] = [];
+    }
+
+    gltf.scene.traverse((child: THREE.Mesh | any): void => {
       if (child.type === HelperEnum.MESH)
       {
         child.material = material;
+
+        if (obj?.handleMeshes && obj?.textureName)
+        {
+          this.activeMeshes[obj.textureName].push(child);
+        }
+
         this.addToScene(child)
       }
     })
@@ -85,17 +152,17 @@ export class LoadingService {
     this.meshContainer.push(mesh);
   }
 
-  public addToTexture(texture: THREE.Texture | THREE.MeshBasicMaterial): void {
-    this.textureContainer.push(texture);
+  public addToMaterial(texture: THREE.MeshBasicMaterial, key: string): void {
+    this.materialContainer[key] = texture;
   }
 
   public sceneReady(): void {
     this.meshContainer.forEach(mesh => this._scene.add(mesh));
-    this._sceneService.createScene(this.scene, this._canvas);
+    this._sceneService.createScene(this.scene, this._canvas, this.activeMeshes, this.materialContainer);
   }
 
-  public getTextureByName(textureName: string): THREE.Texture | THREE.MeshBasicMaterial | undefined {
-    return this.textureContainer.find(texture => texture.name === textureName);
+  public getMaterialByKey(key: string): THREE.MeshBasicMaterial | undefined {
+    return this.materialContainer[key]
   }
 
 }
