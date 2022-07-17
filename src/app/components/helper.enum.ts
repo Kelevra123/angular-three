@@ -8,7 +8,9 @@ export enum TextureEnum {
   BOOKSHELF = 'bookShelf',
   BOOKSHELF_ACTIVE = 'bookShelfActive',
   PHOTO = 'photo',
-  PHOTO_ACTIVE = 'photoActive'
+  PHOTO_ACTIVE = 'photoActive',
+  LAPTOP_VIDEO = 'laptopVideo',
+  PC_VIDEO = 'pcVideo'
 }
 
 export enum ControlEnum {

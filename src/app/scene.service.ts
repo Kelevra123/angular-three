@@ -40,7 +40,7 @@ export class SceneService {
   private canvas: any = null;
 
   //Move control members
-  private triggerActive: string = '';
+  private triggerActive: string | undefined = '';
   private needUpdate: boolean = false;
   private bookshelfActive: boolean = false;
   private mainTableActive: boolean = false;
@@ -52,6 +52,11 @@ export class SceneService {
   private bookshelf: Array<THREE.Mesh> = [];
   private mainTable: Array<THREE.Mesh> = [];
   private photo: Array<THREE.Mesh> = [];
+
+  //Video
+  private videoArray: any = {};
+  private videoContainer: any;
+  private videoTexture: any;
 
   //Intersects
   private intersectsStatus: boolean = false;
@@ -74,7 +79,6 @@ export class SceneService {
   }
 
   public onClick(event: MouseEvent): void {
-    console.log(this.triggerActive, this.photoActive)
     switch(this.triggerActive)
     {
       case ControlEnum.TABLE_MOVE:
@@ -87,6 +91,10 @@ export class SceneService {
         this.toPhoto();
         break;
     }
+  }
+
+  public setVideoToScene(video: ElementRef, key: string): void {
+    this.videoArray[key] = video;
   }
 
   private toPhoto(): void {
@@ -118,25 +126,59 @@ export class SceneService {
       });
       gsap.delayedCall(1.5, () =>
       {
-        this.toggleRaycasterActive(true, '');
+        this.toggleRaycasterActive(true);
       });
     }
   }
 
   private toTable(): void {
-    console.log('toTable')
-    // gsap.to(this.camera.position, {
-    //   duration: 1,
-    //   z: 1,
-    //   y: 17
-    // })
+    if (!this.mainTableActive)
+    {
+      this.toggleRaycasterActive(false, ControlEnum.TABLE_MOVE);
+      this.updateMaterial(this.mainTable, this.materialContainer[TextureEnum.MAIN_TABLE]);
+      gsap.to(this.camera.position, {
+        duration: 1,
+        z: 1,
+        y: 17
+      })
+      for (let key in this.videoContainer)
+      {
+        if (this.videoContainer.hasOwnProperty(key) && this.videoArray.hasOwnProperty(key))
+        {
+          this.scene.add(this.videoContainer[key])
+          this.videoArray[key].nativeElement.playbackRate = 3.0;
+          this.videoArray[key].nativeElement.play();
+        }
+      }
+    }
+    else if (this.mainTable && !this.freeMode)
+    {
+      gsap.to(this.camera.position, {
+        duration: 1,
+        z: 95,
+        y: 18
+      })
+      for (let key in this.videoContainer)
+      {
+        if (this.videoContainer.hasOwnProperty(key) && this.videoArray.hasOwnProperty(key))
+        {
+          this.scene.remove(this.videoContainer[key])
+          this.videoArray[key].nativeElement.pause();
+        }
+      }
+
+      gsap.delayedCall(1.5, () =>
+      {
+        this.toggleRaycasterActive(true);
+      })
+      this.control.enabled = true;
+    }
   }
 
   private toBooks(): void {
-    console.log('toBooks')
   }
 
-  public createScene(scene: THREE.Scene, canvas: ElementRef, activeMeshes: any, materialContainer: any): void {
+  public createScene(scene: THREE.Scene, canvas: ElementRef, activeMeshes: any, materialContainer: any, videoContainer: any): void {
     this.scene = scene;
     this.canvas = canvas;
 
@@ -145,8 +187,18 @@ export class SceneService {
     this.mainTable = activeMeshes[TextureEnum.MAIN_TABLE];
     this.photo = activeMeshes[TextureEnum.PHOTO];
 
-    //Material Container
+    //*Containers
     this.materialContainer = materialContainer;
+    this.videoContainer = videoContainer;
+
+    //VideoSet
+    for (let key in this.videoContainer)
+    {
+      if (this.videoContainer.hasOwnProperty(key))
+      {
+        this.videoContainer[key].material = this.materialContainer[key]
+      }
+    }
 
 
     let aspectRatio = this.getAspectRatio();
@@ -186,7 +238,7 @@ export class SceneService {
     this.needUpdate = false;
   }
 
-  private toggleRaycasterActive(isActive: boolean, trigger: string): void {
+  private toggleRaycasterActive(isActive: boolean, trigger?: string | undefined): void {
     if (isActive)
     {
       this.freeMode = true;

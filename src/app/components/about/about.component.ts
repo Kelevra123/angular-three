@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulat
 import * as THREE from 'three'
 import { LoadingService } from "../../loading.service";
 import { SceneService } from "../../scene.service";
+import { TextureEnum } from "../helper.enum";
 
 @Component({
   selector: '.about',
@@ -12,6 +13,12 @@ import { SceneService } from "../../scene.service";
 export class AboutComponent implements AfterViewInit{
   @ViewChild('canvas')
   private canvasRef!: ElementRef;
+
+  @ViewChild('laptopVideo')
+  private laptopVideo!: ElementRef;
+
+  @ViewChild('pcVideo')
+  private pcVideo!: ElementRef;
 
   private get canvas(): HTMLCanvasElement {
     return this.canvasRef.nativeElement
@@ -27,6 +34,11 @@ export class AboutComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
     this._loadingService.canvas(this.canvas)
+    this._loadingService.encodeVideoToTexture(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
+    this._loadingService.encodeVideoToTexture(this.pcVideo, TextureEnum.PC_VIDEO);
+
+    this._sceneService.setVideoToScene(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
+    this._sceneService.setVideoToScene(this.pcVideo, TextureEnum.PC_VIDEO);
   }
 
   onMouseMove($event: MouseEvent) {

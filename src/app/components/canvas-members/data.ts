@@ -7,22 +7,22 @@ export type GltfData = {
   textureName?: string,
   handleMeshes?: boolean,
   photoPosition?: number
-}
+};
 
 export type PhotoData = {
     id: string
     gltf: string,
     texture: {}
-}
+};
 
 
 export type SavedMaterial = {
   string: THREE.MeshBasicMaterial
-}
+};
 
 export type ActiveMeshes = {
   string: Array<THREE.Mesh>
-}
+};
 
 export const photoData: Array<PhotoData>  = [
   {
@@ -44,7 +44,7 @@ export const photoData: Array<PhotoData>  = [
       photo13: '../assets/photo/photo13.jpg',
     }
   }
-]
+];
 
 export const meshData: Array<GltfData> = [
   {gltf: '../assets/walls/frontWall.glb', texture: '../assets/walls/frontWall.jpg'},
@@ -70,4 +70,9 @@ export const meshData: Array<GltfData> = [
   {gltf: '', texture: '../assets/table/emisText.jpg', textureName: TextureEnum.MAIN_TABLE_ACTIVE},
   {gltf: '../assets/photo/photoWex.glb', texture: '../assets/photo/photoWex.jpg', handleMeshes: true, textureName: TextureEnum.PHOTO},
   {gltf: '', texture: '../assets/photo/photoWexEmis.jpg', textureName: TextureEnum.PHOTO_ACTIVE},
+];
+
+export const videoData = [
+  {gltf: '../assets/video/videoLaptop.glb', id: TextureEnum.LAPTOP_VIDEO},
+  {gltf: '../assets/video/videoPC.glb', id: TextureEnum.PC_VIDEO}
 ]

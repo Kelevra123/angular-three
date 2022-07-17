@@ -4,7 +4,7 @@
 <div class="about__exp">
 <!--  <img src="../../assets/plug.jpg" class="about__exp_plug">-->
   <canvas #canvas (mousemove)="onMouseMove($event)" (click)="onClick($event)" class="about__exp_canvas">
-    <video src=""></video>
-    <video src=""></video>
+    <video #laptopVideo [muted]="true" [loop]="true" src="../../assets/video/houseSham.mp4"></video>
+    <video #pcVideo [muted]="true" [loop]="true" src="../../assets/video/GLSL.mp4"></video>
   </canvas>
 </div>

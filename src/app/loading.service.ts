@@ -9,7 +9,7 @@ import {
   meshData,
   PhotoData,
   photoData,
-  SavedMaterial
+  SavedMaterial, videoData
 } from "./components/canvas-members/data";
 import { MeshBasicMaterial } from "three";
 
@@ -17,10 +17,12 @@ import { MeshBasicMaterial } from "three";
 export class LoadingService {
   private meshContainer: Array<THREE.Object3D> = [];
   private materialContainer: SavedMaterial | any = {};
+  private videoContainer: any = {};
 
   //_Data
   private data: Array<GltfData>;
   private photoData: Array<PhotoData>;
+  private videoData: any;
 
   private activeMeshes: any = {}
 
@@ -58,10 +60,12 @@ export class LoadingService {
     this._dracoLoader = new DRACOLoader();
     this._dracoLoader.setDecoderPath('../../assets/draco/');
     this._gltfLoader.setDRACOLoader(this._dracoLoader);
-    this.data = meshData
-    this.photoData = photoData
+    this.data = meshData;
+    this.photoData = photoData;
+    this.videoData = videoData;
     this.loadMeshData();
-    this.loadPhotoData()
+    this.loadPhotoData();
+    this.loadVideoData();
   }
 
   private loadMeshData(): void {
@@ -123,6 +127,29 @@ export class LoadingService {
     })
   }
 
+  private loadVideoData(): void {
+    this.videoData.forEach((data: any) => {
+      this.gltfLoader.load(data.gltf,
+        (gltf) => {
+          gltf.scene.traverse(child => {
+            if (child.type === HelperEnum.MESH) {
+              this.videoContainer[data.id] = child;
+            }
+          })
+        })
+    })
+  }
+
+  public encodeVideoToTexture(videoElement: ElementRef, key: string): void {
+    let videoTexture = new THREE.VideoTexture(videoElement.nativeElement);
+    videoTexture.minFilter = THREE.NearestFilter;
+    videoTexture.magFilter = THREE.NearestFilter;
+    videoTexture.flipY = false;
+    const videoMaterial = new THREE.MeshBasicMaterial( {map: videoTexture} );
+
+    this.addToMaterial(videoMaterial, key);
+  }
+
   public canvas(canvas: any) : void {
     this._canvas = canvas;
   }
@@ -158,7 +185,7 @@ export class LoadingService {
 
   public sceneReady(): void {
     this.meshContainer.forEach(mesh => this._scene.add(mesh));
-    this._sceneService.createScene(this.scene, this._canvas, this.activeMeshes, this.materialContainer);
+    this._sceneService.createScene(this.scene, this._canvas, this.activeMeshes, this.materialContainer, this.videoContainer);
   }
 
   public getMaterialByKey(key: string): THREE.MeshBasicMaterial | undefined {
