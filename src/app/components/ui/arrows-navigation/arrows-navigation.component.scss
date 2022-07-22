@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css?family=Righteous');
+$width: 300px;
+
+
+.arrow-wrapper {
+  display: flex;
+  align-items: center;
+  z-index: 104;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 215px);
+  user-select: none;
+}
+
+.block {
+  width: $width;
+  height: 100px;
+  background: #000000;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 104;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+h1 {
+  color: rgb(250,250,250);
+  opacity: 0.4;
+  text-align: center;
+  text-transform: uppercase;
+  transition: opacity 0.3s;
+}
+
+.arrow-wrapper:hover h1 {
+  opacity: 1;
+}
+
+/***************
+ * Arrow 1
+ ***************/
+
+//#arrow_1 .arrow {
+//  $size: 30px;
+//  $width: 2px;
+//
+//  cursor: pointer;
+//  display: block;
+//  width: $size / 1.414;
+//  height: $size / 1.414 * 2;
+//  position: relative;
+//  z-index: 104;
+//
+//  & span,
+//  &:before,
+//  &:after {
+//    background: #fff;
+//    content: '';
+//    display: block;
+//    width: $size;
+//    height: $width;
+//    position: absolute;
+//    top: calc(50% - (#{$width} / 2));
+//  }
+//
+//  &:before {
+//    transform: rotate(-45deg);
+//  }
+//  &:after {
+//    transform: rotate(45deg);
+//  }
+//
+//  & span {
+//    width: 0;
+//  }
+//  &:hover span {
+//    width: $size * 1.414;
+//  }
+//
+//  @each $direction in 'left' 'right' {
+//    &.arrow--#{$direction} {
+//      & span,
+//      &:before,
+//      &:after {
+//        #{$direction}: 0;
+//        transform-origin: #{$direction} 50%;
+//      }
+//
+//      &:before,
+//      &:after {
+//        transition: #{$direction} 0.3s 0.05s;
+//      }
+//
+//      & span {
+//        transition: width 0.3s, #{$direction} 0.3s 0.05s;
+//      }
+//
+//      &:hover {
+//        & span,
+//        &:before,
+//        &:after {
+//          #{$direction}: $size / 1.414 * -1;
+//        }
+//      }
+//    }
+//  }
+//}
+
+/***************
+ * Arrow 2
+ ***************/
+
+#arrow_2 .arrow {
+  $size: 10px;
+  $width: 2px;
+
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  align-items: flex-start;
+  text-transform: uppercase;
+  position: relative;
+  transition: transform 0.3s;
+  z-index: 104;
+
+  span {
+    display: block;
+    width: 3em;
+    opacity: 0;
+    transition: opacity 0.3s 0s;
+    padding: 0 0.5em;
+  }
+
+  &:hover span {
+    opacity: 1;
+    transition: opacity 0.3s 0.1s;
+  }
+
+  &:before {
+    content: '';
+    display: block;
+    border: solid #fff;
+    border-width: $width $width 0 0;
+    position: absolute;
+    top: 4px;
+    width: $size;
+    height: $size;
+  }
+
+  &.arrow--left:before {
+    transform: rotate(-135deg);
+    right: 0;
+    transition: right 0.3s 0.2s;
+  }
+  &.arrow--left:hover:before {
+    right: 100%;
+    transition: right 0.3s;
+  }
+
+  &.arrow--right {
+    text-align: right;
+  }
+  &.arrow--right:before {
+    left: 0;
+    transform: rotate(45deg);
+    transition: left 0.3s 0.2s;
+  }
+  &.arrow--right:hover:before {
+    left: 100%;
+    transition: left 0.3s;
+  }
+
+  &:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald&family=Rubik+Bubbles&display=swap");
+
+.card-exp {
+  z-index: 100;
+  min-height: 550px;
+  max-height: 550px;
+  width: 100%;
+  padding: 20px 20px;
+  margin: 10px;
+  border-radius: 15px;
+  box-shadow: 14px 6px 9px 9px rgb(0 0 0 / 13%);
+  //background: #d2bdff;
+  background: steelblue;
+  //font-family: 'Oswald', sans-serif;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  color: white;
+
+  &__section {
+    font-weight: bold;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    width: 50%;
+  }
+
+  &__title {
+    width: 70%;
+    text-align: center;
+  }
+
+  &__info {
+    font-size: 1.4em;
+    width: 50%;
+  }
+
+  &__img {
+    height: 70%;
+    width: 100%;
+  }
+
+  &__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  &__img img.active {
+    animation: toAndBack 1s linear;
+
+    @keyframes toAndBack {
+      0% {width: 0}
+      100% {width: 100%}
+    }
+  }
+}

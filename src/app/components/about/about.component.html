@@ -1,10 +1,50 @@
 <div class="about__text">
-  <h1 class="about__text_title">Welcome Home</h1>
+  <div class="about__text_by">
+
+
+
+    <h1 class="about__text_title">Hi!</h1>
+    <img class="img-test1" src="../../../assets/mainObj.png" alt="">
+  </div>
+<!--  <div class="about__text_by">-->
+  <div class="test10">
+    <img class="img-test" src="../../../assets/transtest.png" alt="">
+    <h1>I am Egor   -   Creative JS Developer</h1>
+  </div>
+
+
+<!--    <h2>I am Egor Nikiforenko</h2>-->
+<!--  </div>-->
+  <div class="test"></div>
+  <p></p>
+<!--  <div class="about__text_by">-->
+<!--    <div class="social"></div>-->
+<!--  </div>-->
+
 </div>
 <div class="about__exp">
-<!--  <img src="../../assets/plug.jpg" class="about__exp_plug">-->
-  <canvas #canvas (mousemove)="onMouseMove($event)" (click)="onClick($event)" class="about__exp_canvas">
+  <h1 class="test2">CLICK TO EXPLORE</h1>
+  <div class="test1">
+    <div class="about__exp_plug"></div>
+  </div>
+  <div #explore (click)="toFullScreen()" class="test5">
+    <div class="hover-effect-button"></div>
+  </div>
+<!--  <div #explore (click)="toFullScreen()" class="test4">-->
+<!--    <div class="test3">Click to Explore</div>-->
+<!--  </div>-->
+  <div style="height: 20%"></div>
+  <canvas #canvas (mousemove)="onMouseMove($event)" (click)="onClick($event)" class="about__exp_canvas dn">
     <video #laptopVideo [muted]="true" [loop]="true" src="../../assets/video/houseSham.mp4"></video>
     <video #pcVideo [muted]="true" [loop]="true" src="../../assets/video/GLSL.mp4"></video>
   </canvas>
+  <div #exit class="about__exit dn" (click)="doBackMove()">
+    <div class="exit-button"></div>
+  </div>
+  <div #nav class="about__nav dn">
+    <div [nextMove]="nextStep" [prevMove]="prevStep" [defaultMove]="defaultPosition" class="arrows-navigation"></div>
+  </div>
+  <div #bottomTop class="about__bottom-top dn">
+    <div class="bottom-top-navigation"></div>
+  </div>
 </div>

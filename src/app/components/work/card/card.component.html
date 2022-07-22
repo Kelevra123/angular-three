@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card__wrapper">
+    <div class="card__img">
+      <img class="1" src="{{img}}" alt="">
+    </div>
+    <h3 class="card__date">{{date}}</h3>
+    <h1 class="card__title">{{title}}</h1>
+  </div>
+  <ul class="card__info">
+    <li class="card__role">
+      <span class="card__section">Role:</span>
+      {{role}}</li>
+    <li class="card__role">
+      <span class="card__section">Technologies:</span>
+      {{technologies}}</li>
+    <li class="card__role">
+      <span class="card__section">Challenge:</span>
+      <ul *ngFor="let chal of challenge" class="card__sub">
+        <li class="card__li">{{chal}}</li>
+      </ul>
+    </li>
+    <li class="card__role">
+      <span class="card__section">Achievements:</span>
+      <ul *ngFor="let sub of achievements" class="card__sub">
+        <li class="card__li">{{sub}}</li>
+      </ul>
+    </li>
+  </ul>
+</div>

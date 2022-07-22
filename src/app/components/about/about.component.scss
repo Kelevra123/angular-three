@@ -1,34 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
 .about
 {
   width: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  //background-color: blue;
 
   &__text
   {
-    width: 50%;
-    text-align: center;
+    padding: 0 2%;
+    width: 45%;
+    height: 95%;
+    max-width: 610px;
+    //background: white;
+    //border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    justify-content: center;
+    color: white;
+    //text-align: center;
+    //background: rgb(2,0,36);
+    //background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 0%, rgba(74,137,148,1) 100%, rgba(113,28,28,0) 100%);
+    //-webkit-box-shadow: -4px -1px 17px 18px rgba(70, 130, 180, 0.2);
+    //-moz-box-shadow: -4px -1px 17px 18px rgba(70, 130, 180, 0.2);
+    //box-shadow: -4px -1px 17px 18px rgba(70, 130, 180, 0.2);
+    &_title {
+      font-size: 64px;
+      width: 75%;
+    }
+
+    &_by {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
   }
 
   &__exp
   {
-    width: 50%;
-
+    width: 45%;
+    height: 95%;
+    //margin: 2% 2% 2% 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 15px;
+    //background-image: url("../../../assets/plug.jpg");
+    //background-size: contain;
+    //background-repeat: no-repeat;
+    background: black;
+    //background: rgb(2,0,36);
+    //background: linear-gradient(270deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 73%, rgba(74,137,148,1) 100%, rgba(113,28,28,0) 100%);
+    //-webkit-box-shadow: -4px -1px 17px 5px rgba(0, 0, 0, 0.2);
+    //-moz-box-shadow: -4px -1px 17px 5px rgba(0, 0, 0, 0.2);
+    //box-shadow: -4px -1px 17px 5px rgba(0, 0, 0, 0.2);;
     &_plug
     {
-      //width: 100%;
+      width: 50%;
+      //height: 30%;
+      background-image: url("../../../assets/plug.jpg");
+      background-size: contain;
+      background-repeat: no-repeat;
     }
 
     &_canvas
     {
-      right: 0;
       width: 100%;
       height: 100%;
-      position: absolute;
+      //position: absolute;
       z-index: 100;
       //display: none;
     }
+
+    &_exit
+    {
+      right: 0;
+      top: 5%;
+      width: 10%;
+      height: 10%;
+      position: absolute;
+      color: red;
+      z-index: 101;
+      user-select: none;
+
+      &:hover
+      {
+        cursor: pointer;
+      }
+    }
   }
+}
+
+.dn {
+  display: none;
+}
+
+.fullScreen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  //top: 0;
+  //left: 0;
+}
+
+.test1 {
+  width: 90%;
+  height: 50%;
+  //display: flex;
+  //justify-content: center;
+  background-image: url("../../../assets/plug.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  //border-radius: 30px;
+  -webkit-box-shadow: -4px -1px 17px 28px rgba(70, 130, 180, 0.2);
+  -moz-box-shadow: -4px -1px 17px 28px rgba(70, 130, 180, 0.2);
+  box-shadow: -4px -1px 17px 28px rgba(70, 130, 180, 0.2);
+}
+.test2 {
+  height: 10%;
+  color: #d2bdff;
+}
+.test3 {
+  //height: 10%;
+  width: 100%;
+  text-align: center;
+  //visibility: hidden;
+  cursor: pointer;
+}
+
+.test4 {
+  height: 10%;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  background-color: blue;
+  visibility: hidden;
+}
+
+.test5 {
+  height: 20%;
+  visibility: hidden;
+}
+
+.img-test {
+  width: 15%;
+  border-radius: 15px;
+}
+
+.img-test1 {
+  width: 25%;
+  border-radius: 15px;
+  animation: mainObject ease-in-out 5s infinite;
+  @keyframes mainObject {
+    0% {transform: rotateZ(0)}
+
+    30% {transform: scaleX(1.2) translate(0, 100px)}
+
+    50% {transform: rotateZ(180deg) translate(0, 50px)}
+
+    60% {transform: rotateZ(360deg) translate(0, 100px)}
+    70% {transform: translate(0, 100px) }
+    100% {transform: rotateZ(-360deg) translate(0, 0)}
+  }
+}
+
+.visible {
+  visibility: visible;
+  color: white;
+  animation: sceneReady ease-in-out 2s;
+  @keyframes sceneReady {
+    from {
+      opacity: 0;
+    }
+  }
+}
+
+.test10 {
+  display: flex;
+  height: 70%;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.test10 img {
+  width: 50%;
+}
+
+.img-test222 {
+  position: absolute;
+  width: 15%;
+  left: 43%;
+  top: 74%;
 }

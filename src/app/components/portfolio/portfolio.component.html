@@ -1,0 +1,92 @@
+<!--<div class="portfolio__container">-->
+<!--  <div class="portfolio__wrapper">-->
+<!--    <div class="portfolio__area">-->
+<!--      <ng-container>-->
+<!--          <div class="portfolio__card">-->
+<!--            <div class="port-card"-->
+<!--                 title="Aquapolo. SPA"-->
+<!--                 img="../../../assets/portfolio/aqua.gif"-->
+<!--                 about="The landing page I worked on at the start."-->
+<!--            ></div>-->
+<!--          </div>-->
+<!--          <div class="portfolio__card">-->
+<!--            <div class="port-card"-->
+<!--                 title="Skribble. Multiplayer browser game"-->
+<!--                 img="../../../assets/portfolio/skribble.png"-->
+<!--                 about="I can tell (and show) more about the gameplay and functionality in a technical interview."-->
+<!--            ></div>-->
+<!--          </div>-->
+<!--          <div class="portfolio__card">-->
+<!--            <div class="port-card"-->
+<!--                 title="Sliding Puzzle. Cocos2dx game"-->
+<!--                 img="../../../assets/portfolio/pyat.gif"-->
+<!--                 about="One of my three games that I studied Cocos2dx to create. Open source and assets available in my git."-->
+<!--            ></div>-->
+<!--          </div>-->
+<!--          <div class="portfolio__card">-->
+<!--            <div class="port-card"-->
+<!--                 title="Pocket Styler. Nordcurrent"-->
+<!--                 img="../../../assets/portfolio/pocket.png"-->
+<!--                 about="Popular game with 5M+ downloads on Google Play. Had the pleasure of being part of the development team."-->
+<!--            ></div>-->
+<!--          </div>-->
+<!--      </ng-container>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="portfolio__plug"></div>
+<div class="portfolio__title">
+  <h1>Worked with</h1>
+</div>
+<div class="portfolio__plug"></div>
+<div #cont class="portfolio__container">
+  <div class="portfolio__card" (click)="onClick(0)">
+    <div class="portfolio__card_box port-card-hover">
+      <div class="portfolio__card_content">
+        <h1>Aquapolo. SPA</h1>
+        <div class="portfolio__card_image">
+          <img class="portfolio__img" src="../../../assets/portfolio/aqua.gif" alt="">
+        </div>
+        <h3>The landing page I worked on at the start.</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="portfolio__card" (click)="onClick(1)">
+    <div class="portfolio__card_box port-card-hover">
+      <div class="portfolio__card_content">
+        <h1>Skribble. Multiplayer browser game</h1>
+        <div class="portfolio__card_image">
+          <img class="portfolio__img" src="../../../assets/portfolio/pyat.gif" alt="">
+        </div>
+        <h3>One of my three games that I studied Cocos2dx to create. Open source and assets available in my git.</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="portfolio__card" (click)="onClick(2)">
+    <div class="portfolio__card_box port-card-hover">
+      <div class="portfolio__card_content">
+        <h1>Sliding Puzzle. Cocos2dx game</h1>
+        <div class="portfolio__card_image">
+          <img class="portfolio__img" src="../../../assets/portfolio/skribble.png" alt="">
+        </div>
+        <h3>I can tell (and show) more about the gameplay and functionality in a technical interview.</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="portfolio__card" (click)="onClick(3)">
+    <div class="portfolio__card_box port-card-hover">
+      <div class="portfolio__card_content">
+        <h1>Pocket Styler. Nordcurrent</h1>
+        <div class="portfolio__card_image">
+          <img class="portfolio__img" src="../../../assets/portfolio/pocket.png" alt="">
+        </div>
+        <h3>Popular game with 5M+ downloads on Google Play. Had the pleasure of being part of the development team.</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="portfolio__plug"></div>
+<div class="portfolio__plug"></div>

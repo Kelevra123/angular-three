@@ -1,12 +1,12 @@
-.wrapper {
+.site-wrapper {
 
-  width: 90%;
+  width: 100%;
   height: 100%;
-  //background-color: #150c21;
   //opacity: 50%;
 
   &__container {
     width: 100%;
     height: 100%;
+    background-color: black;
   }
 }

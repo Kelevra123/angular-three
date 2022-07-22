@@ -1,0 +1,189 @@
+//@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+//
+//.work {
+//  width: 100%;
+//  height: 100%;
+//  background: white;
+//
+//  &__container {
+//    width: 100%;
+//    height: 100%;
+//    display: flex;
+//    justify-content: space-around;
+//    //background: white;
+//    align-items: center;
+//    flex-wrap: wrap;
+//    font-family: "Roboto", sans-serif;;
+//  }
+//
+//  &__text {
+//    width: 100%;
+//    height: 100%;
+//
+//
+//    display: flex;
+//    justify-content: center;
+//    flex-direction: column;
+//    align-items: center;
+//  }
+//}
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Bubbles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald&family=Rubik+Bubbles&display=swap");
+
+.work {
+  width: 100%;
+  height: 100%;
+  background: black;
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    //background: white;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__text {
+    width: 100%;
+    height: 100%;
+
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    &_title {
+      font-size: 2em;
+      //background: #d2bdff;
+      width: 100%;
+      text-align: center;
+      color: white;
+      //font-family: 'Rubik Bubbles', cursive;
+      //font-family: 'Oswald', sans-serif;
+    }
+
+    &_para {
+      font-size: 1.5em;
+      padding: 0 10%;
+      text-align: center;
+      font-weight: bold;
+      font-family: Roboto, sans-serif;
+      //color: steelblue;
+      //color: white;
+      & a {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.deck {
+  width: 10%;
+  height: 100%;
+}
+
+.show {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-sleep {
+  transform: rotateY(180deg);
+}
+
+.card-active1 {
+  animation: active1 1s ease-in-out;
+  animation-fill-mode: forwards;
+  @keyframes active1 {
+    0% {transform: translate(-100%, 0px); width: 10%; color: #d2bdff}
+    50% {color: #d2bdff}
+    100% {transform: translate(0px, 0px) rotateY(360deg); color: white}
+  }
+}
+
+.card-active2 {
+  animation: active2 1s ease-in-out;
+  animation-fill-mode: forwards;
+  @keyframes active2 {
+    0% {transform: translate(-200%, 0); width: 10%; color: #d2bdff; opacity: 0}
+    50% {color: #d2bdff;}
+    100% {transform: translate(0, 0) rotateY(360deg); color: white; opacity: 1}
+  }
+}
+
+.card-active3 {
+  animation: active3 1s ease-in-out;
+  animation-fill-mode: forwards;
+  @keyframes active3 {
+    0% {transform: translate(-300%, 0); width: 10%; color: #d2bdff; opacity: 0}
+    50% {color: #d2bdff;}
+    100% {transform: translate(0, 0) rotateY(360deg); color: white; opacity: 1}
+  }
+}
+
+.card-active12 {
+  animation: active3 .5s ease-in-out;
+  animation-fill-mode: forwards;
+  @keyframes active3 {
+    0% {transform: translate(-300%, 0); color: #d2bdff; opacity: 0}
+    50% {color: #d2bdff;}
+    100% {transform: translate(0, 0); color: black; opacity: 1}
+  }
+}
+
+.card-deactive {
+  position: relative;
+  left: -80px;
+  color: #d2bdff;
+  user-select: none;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 14px 6px 9px 9px rgb(0 0 0 / 50%);
+  }
+}
+
+.deak {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  left: -100px;
+  min-height: 550px;
+  background: steelblue;
+
+  //background:  #d2bdff;
+  padding: 20px 20px;
+  margin: 10px;
+  border-radius: 15px;
+  width: 100%;
+  font-size: 30px;
+  color: white;
+  box-shadow: 1px 0px 9px 9px rgb(255 255 255);
+  &:hover {
+    transform: translate(20px);
+    transition: all .5s;
+    cursor: pointer;
+    color: black;
+  }
+}
+
+.work-ww {
+  background: white;
+  //background: #d2bdff;
+  height: 7em;
+  width: 100%;
+}
+
+.work-www {
+  background: black;
+  height: 6em;
+  width: 100%;
+}
+

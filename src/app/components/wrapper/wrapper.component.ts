@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: '.wrapper',
+  selector: '.site-wrapper',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.scss'],
   encapsulation: ViewEncapsulation.None,
