@@ -1,38 +1,21 @@
 <div class="about__text">
   <div class="about__text_by">
-
-
-
     <h1 class="about__text_title">Hi!</h1>
-    <img class="img-test1" src="../../../assets/mainObj.png" alt="">
+    <img class="about__fly-image" src="../../../assets/mainObj.png" alt="">
   </div>
-<!--  <div class="about__text_by">-->
-  <div class="test10">
-    <img class="img-test" src="../../../assets/transtest.png" alt="">
+  <div class="about__me">
+    <img src="../../../assets/transtest.png" alt="">
     <h1>I am Egor   -   Creative JS Developer</h1>
   </div>
-
-
-<!--    <h2>I am Egor Nikiforenko</h2>-->
-<!--  </div>-->
-  <div class="test"></div>
-  <p></p>
-<!--  <div class="about__text_by">-->
-<!--    <div class="social"></div>-->
-<!--  </div>-->
-
 </div>
 <div class="about__exp">
-  <h1 class="test2">CLICK TO EXPLORE</h1>
-  <div class="test1">
+  <h1>CLICK TO EXPLORE</h1>
+  <div class="about__preview">
     <div class="about__exp_plug"></div>
   </div>
   <div #explore (click)="toFullScreen()" class="test5">
     <div class="hover-effect-button"></div>
   </div>
-<!--  <div #explore (click)="toFullScreen()" class="test4">-->
-<!--    <div class="test3">Click to Explore</div>-->
-<!--  </div>-->
   <div style="height: 20%"></div>
   <canvas #canvas (mousemove)="onMouseMove($event)" (click)="onClick($event)" class="about__exp_canvas dn">
     <video #laptopVideo [muted]="true" [loop]="true" src="../../assets/video/houseSham.mp4"></video>

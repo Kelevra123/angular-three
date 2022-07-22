@@ -27,6 +27,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
   public stepAngle: any;
   public currentSlide = 0;
   public autoplay: any;
+  public res: any = false;
 
   @ViewChild('wrapper')
   public wrapper: any;
@@ -57,8 +58,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
     this.slides = this.slidesHolder.nativeElement.children;
     this.descriptions = this.descriptionsHolder.nativeElement.children;
     this.stepAngle = 2*Math.PI / this.slides.length
-    console.log(this.slides.length, this.descriptions.length)
-    this.slider(this.circularSlider.nativeElement)
+    this.slider(this.circularSlider.nativeElement, 2000, 15, 600, 5000)
   }
 
   public startSetup( sliderSize: any, slideSize: any, animationDuration:any, autoplayInterval: any ) {
@@ -67,22 +67,23 @@ export class SliderComponent implements OnInit, AfterViewInit {
     this.slideSize         = parseFloat( slideSize )/100;
     this.animationDuration = parseFloat( animationDuration );
     this.autoplayInterval  = parseFloat( autoplayInterval );
+    this.onResize();
 
   };
   //
-public slider( newSlider: any ) {
+public slider( newSlider: any, sliderSize: number, slideSize: number, animationDuration: number, autoplayInterval: number, force?: boolean ) {
 
-    this.startSetup(2500, 15, 600, 5000)
+    if (!force) {
+      this.startSetup(sliderSize, slideSize, animationDuration, autoplayInterval)
+    }
     this.slidesHolder.nativeElement.style.transitionDuration = this.animationDuration + 'ms';
-    this.onResize();
     this.setAutoplay();
     this.setNav();
     this.addStyle();
+    this.resetNavs()
 
-    // window.onresize = () =>  {
-    //   console.log('resize')
-    //   this.resetNavs()
-    //   this.onResize()
+    // window.onresize = (event) =>  {
+    //   this.onResize(event)
     // }
 
     let _this = this;
@@ -107,16 +108,27 @@ public slider( newSlider: any ) {
 
   };
 
-  onResize() {
+  onResize(event?: any) {
 
-    let radius,
-      w = this.wrapper.nativeElement.parentNode.getBoundingClientRect().width,
-      h = this.wrapper.nativeElement.parentNode.getBoundingClientRect().height;
+    console.log(event)
+    if (event) {
+      if (event.target.innerWidth < 1200 && event.target.innerWidth > 700 && !this.res) {
+        this.slider(this.circularSlider.nativeElement, 100, this.slideSize, this.animationDuration, this.autoplayInterval, true)
+        this.res = true
+      }
+    }
+    else
+    {
+      console.log('ss')
+      let radius,
+        w = this.wrapper.nativeElement.parentNode.getBoundingClientRect().width,
+        h = this.wrapper.nativeElement.parentNode.getBoundingClientRect().height;
 
-    2*h <= w ? radius = h*this.sliderSize
-      : radius = ( w/2 )*this.sliderSize;
+      2*h <= w ? radius = h*this.sliderSize
+        : radius = ( w/2 )*this.sliderSize;
 
-    this.setSize( Math.round( radius ) );
+      this.setSize( Math.round( radius ) );
+    }
 
   };
 

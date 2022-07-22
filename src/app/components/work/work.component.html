@@ -1,16 +1,13 @@
-<div class="work-ww"></div>
+<div class="work__plug"></div>
 <div class="work__text">
   <h1 class="work__text_title">My Journey as a JS Developer</h1>
-<!--  <p class="work__text_para">I worked for 2 years and 4 months in two different companies. Started with layout and simple UI components. Later wrote Telegram bots. Started learning vector math and WebGL. Worked at gamedev for the last 4 months-->
-<!--    <a href="https://www.nordcurrent.com">NORDCURRENT</a>-->
-<!--  </p>-->
 </div>
 <div class="work__container">
-  <div class="deck">
-    <div class="deak" (click)="next()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
+  <div class="work__wrapper">
+    <div class="work__deck" (click)="next()"><fa-icon [icon]="faArrowRight"></fa-icon></div>
   </div>
-  <div class="show">
-    <div *ngIf="step === 0" class="card-exp card-active12"
+  <div class="work__area">
+    <div *ngIf="step === 0" class="card-exp card-active"
          [img]="work.img"
          [title]="work.title"
          [date]="work.date"
@@ -19,7 +16,7 @@
          [technologies]="work.technologies"
          [challenge]="work.challenge"
     ></div>
-    <div *ngIf="step %2 === 0 && step != 0" class="card-exp card-active12"
+    <div *ngIf="step %2 === 0 && step != 0" class="card-exp card-active"
        [img]="work.img"
        [title]="work.title"
        [date]="work.date"
@@ -28,7 +25,7 @@
        [technologies]="work.technologies"
        [challenge]="work.challenge"
     ></div>
-    <div *ngIf="step %2 != 0" class="card-exp card-active12"
+    <div *ngIf="step %2 != 0" class="card-exp card-active"
          [img]="work.img"
          [title]="work.title"
          [date]="work.date"
@@ -38,12 +35,22 @@
          [challenge]="work.challenge"
     ></div>
   </div>
-  <div class="work-www"></div>
-<!--  <div class="work__text">-->
-<!--&lt;!&ndash;    <h1 class="work__text_title">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, unde?</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;      <p class="work__text_para">I worked for 2 years and 4 months in two different companies. Started with layout and simple UI components. Later wrote Telegram bots. Started learning vector math and WebGL. Worked at gamedev for the last 4 months&ndash;&gt;-->
-<!--&lt;!&ndash;        <a href="https://www.nordcurrent.com">NORDCURRENT</a>&ndash;&gt;-->
-<!--&lt;!&ndash;      </p>&ndash;&gt;-->
-<!--  </div>-->
-  <div class="work-ww"></div>
+  <div class="work__plug-black"></div>
+  <div class="work__plug"></div>
 </div>
+
+<div class="work__mobile">
+  <div (click)="next()" class="card-exp"
+       [img]="work.img"
+       [title]="work.title"
+       [date]="work.date"
+       [role]="work.role"
+       [achievements]="work.achievements"
+       [technologies]="work.technologies"
+       [challenge]="work.challenge"
+  ></div>
+</div>
+<div class="work__plug-mobile"></div>
+
+
+
