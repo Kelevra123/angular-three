@@ -26,6 +26,8 @@ import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PortCardComponent } from './components/portfolio/port-card/port-card.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { DisplayControllerService } from "./displayController.service";
 
 @NgModule({
   declarations: [
@@ -47,14 +49,15 @@ import { FooterComponent } from './components/footer/footer.component';
     SliderComponent,
     PortfolioComponent,
     PortCardComponent,
-    FooterComponent
+    FooterComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule
   ],
-  providers: [LoadingService, SceneService, ResizeService, CameraControllerService],
+  providers: [LoadingService, SceneService, ResizeService, CameraControllerService, DisplayControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

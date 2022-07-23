@@ -107,18 +107,26 @@ export class SceneService {
     this._cameraController.doMove(this.triggerActive, this.toggleRaycasterActive.bind(this), null, null, this.playVideo.bind(this))
   }
 
-  public onResize() : void {
+  public onResize(size?: any) : void {
+    // Update renderer
+    if (size) {
+      this.renderer.setSize(size.innerWidth, size.innerHeight);
+      this.sizes.width = size.innerWidth;
+      this.sizes.height = size.innerHeight;
+    }
+    else {
+      this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
+    }
+
+    //Update Camera
     const aspectRatio = this.getAspectRatio()
     this.camera.aspect = aspectRatio
+    this.camera.updateProjectionMatrix()
+
     if (this.canvas.clientWidth < 1000) {
       this.camera.fov = 55
     }
-    this.camera.updateProjectionMatrix()
-    console.log(this.canvas.clientWidth)
 
-    // Update renderer
-    // this.renderer.setSize(event.innerWidth, event.innerHeight)
-    this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
 

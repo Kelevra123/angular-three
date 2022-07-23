@@ -1,7 +1,10 @@
-<div class="site-wrapper__container">
-  <section class="about"></section>
+<div #view class="site-wrapper__container dn">
+  <section class="about" [isDesktop]="isDesktop"></section>
   <section class="work"></section>
   <section class="stack"></section>
   <section class="portfolio"></section>
   <footer class="footer"></footer>
+</div>
+<div #loading class="site-wrapper__container">
+  <section class="loading-screen"></section>
 </div>

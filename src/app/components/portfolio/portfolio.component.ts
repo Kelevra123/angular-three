@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { DisplayControllerService } from "../../displayController.service";
 
 @Component({
   selector: '.portfolio',
@@ -19,9 +20,19 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   public container!: ElementRef;
   private children: any;
 
-  constructor() { }
+  public isThree: boolean = false;
+
+  constructor(
+    private _displayController: DisplayControllerService
+  ) {
+    this._displayController.addListener(this)
+  }
 
   ngOnInit(): void {
+  }
+
+  public onThreeStart(isThree: boolean): void {
+    this.isThree = isThree;
   }
 
   ngAfterViewInit(): void {
@@ -30,7 +41,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
   onClick(id: number) {
     const box = this.children[id].firstChild
-    console.log(box)
+    console.log(this.children)
     if (this.children[id].classList.contains('port-active'))
     {
       this.children[id].classList.remove('port-active')

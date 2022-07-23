@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { DisplayControllerService } from "../../displayController.service";
 
 @Component({
   selector: '.stack',
@@ -8,11 +9,19 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class StackComponent implements OnInit {
 
-  constructor() { }
+  public isThree: boolean = false;
+
+  constructor(
+    private _displayController: DisplayControllerService
+  ) {
+    this._displayController.addListener(this)
+  }
 
   ngOnInit(): void {
   }
 
-
+  public onThreeStart(isThree: boolean): void {
+    this.isThree = isThree;
+  }
 
 }

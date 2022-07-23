@@ -34,6 +34,7 @@
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
+<ng-container *ngIf="!isThree">
 <div class="portfolio__plug"></div>
 <div class="portfolio__title">
   <h1>Worked with</h1>
@@ -55,7 +56,7 @@
   <div class="portfolio__card" (click)="onClick(1)">
     <div class="portfolio__card_box port-card-hover">
       <div class="portfolio__card_content">
-        <h1>Skribble. Multiplayer browser game</h1>
+        <h1>Sliding Puzzle. Cocos2dx game</h1>
         <div class="portfolio__card_image">
           <img class="portfolio__img" src="../../../assets/portfolio/pyat.gif" alt="">
         </div>
@@ -67,7 +68,7 @@
   <div class="portfolio__card" (click)="onClick(2)">
     <div class="portfolio__card_box port-card-hover">
       <div class="portfolio__card_content">
-        <h1>Sliding Puzzle. Cocos2dx game</h1>
+        <h1>Skribble. Multiplayer browser game</h1>
         <div class="portfolio__card_image">
           <img class="portfolio__img" src="../../../assets/portfolio/skribble.png" alt="">
         </div>
@@ -90,3 +91,4 @@
 </div>
 <div class="portfolio__plug"></div>
 <div class="portfolio__plug"></div>
+</ng-container>

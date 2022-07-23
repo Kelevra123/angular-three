@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import * as THREE from 'three'
 import { LoadingService } from "../../loading.service";
 import { SceneService } from "../../scene.service";
 import { TextureEnum } from "../helper.enum";
 import { ResizeService } from "../../resize.service";
 import { CameraControllerService } from "../../cameraController.service";
+import { DisplayControllerService } from "../../displayController.service";
 
 @Component({
   selector: '.about',
@@ -13,6 +14,9 @@ import { CameraControllerService } from "../../cameraController.service";
   encapsulation: ViewEncapsulation.None
 })
 export class AboutComponent implements AfterViewInit, OnInit{
+  @Input('isDesktop')
+  public isDesktop: boolean = true;
+
   @ViewChild('canvas')
   private canvasRef!: ElementRef;
 
@@ -47,28 +51,31 @@ export class AboutComponent implements AfterViewInit, OnInit{
     private _loadingService: LoadingService,
     private _sceneService: SceneService,
     private _resizeService: ResizeService,
-    private _cameraController: CameraControllerService
+    private _cameraController: CameraControllerService,
+    private _displayController: DisplayControllerService
   ) { }
 
   ngOnInit(): void {
-    // this.resizeSubscription = this._resizeService.onResize$
-    //   .subscribe(size => this.onResize())
+    this.resizeSubscription = this._resizeService.onResize$
+      .subscribe(size => this.onResize(size))
   }
 
   ngAfterViewInit(): void {
-    this._loadingService.canvas(this.canvas)
-    this._loadingService.encodeVideoToTexture(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
-    this._loadingService.encodeVideoToTexture(this.pcVideo, TextureEnum.PC_VIDEO);
+    setTimeout(() => {
+      this._loadingService.canvas(this.canvas)
+      this._loadingService.encodeVideoToTexture(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
+      this._loadingService.encodeVideoToTexture(this.pcVideo, TextureEnum.PC_VIDEO);
 
-    this._sceneService.setVideoToScene(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
-    this._sceneService.setVideoToScene(this.pcVideo, TextureEnum.PC_VIDEO);
-    this._sceneService.setExitButton(this.exit);
-    this._sceneService.setExploreButton(this.explore);
-    this.nextStep = this.stepToNextPhoto.bind(this);
-    this.prevStep = this.stepToPrevPhoto.bind(this);
-    this.defaultPosition = this.defaultPositionInPhotoMode.bind(this);
-    this._cameraController.setControlsForPhotoMode(this.nav);
-    this._cameraController.setControlsForBookshelfMode(this.bottomTop);
+      this._sceneService.setVideoToScene(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
+      this._sceneService.setVideoToScene(this.pcVideo, TextureEnum.PC_VIDEO);
+      this._sceneService.setExitButton(this.exit);
+      this._sceneService.setExploreButton(this.explore);
+      this.nextStep = this.stepToNextPhoto.bind(this);
+      this.prevStep = this.stepToPrevPhoto.bind(this);
+      this.defaultPosition = this.defaultPositionInPhotoMode.bind(this);
+      this._cameraController.setControlsForPhotoMode(this.nav);
+      this._cameraController.setControlsForBookshelfMode(this.bottomTop);
+    }, 300)
   }
 
   public onMouseMove($event: MouseEvent): void {
@@ -91,18 +98,26 @@ export class AboutComponent implements AfterViewInit, OnInit{
   }
 
   public toFullScreen(): void {
-    this.canvasRef.nativeElement.style.position = 'absolute'
+    this.canvasRef.nativeElement.style.display = 'block'
+    this.canvasRef.nativeElement.style.position = 'fixed'
     this.canvasRef.nativeElement.style.top = '0'
     this.canvasRef.nativeElement.style.left = '0'
     this.canvasRef.nativeElement.style.width = '100%'
     this.canvasRef.nativeElement.style.height = '100%'
+    this.canvasRef.nativeElement.style.zIndex = '100'
     this.canvasRef.nativeElement.classList.remove('dn')
     this.canvasRef.nativeElement.classList.add('fullScreen')
     this.onResize()
+    this._displayController.startThreeExp()
   }
 
-  public onResize(): void {
-    this._sceneService.onResize()
+  public toSite(): void {
+    this.canvasRef.nativeElement.style.display = 'none';
+    this._displayController.endThreeExp()
+  }
+
+  public onResize(size?: any): void {
+    this._sceneService.onResize(size)
   }
 
   public doBackMove(): void {

@@ -8,7 +8,8 @@
     <h1>I am Egor   -   Creative JS Developer</h1>
   </div>
 </div>
-<div class="about__exp">
+<h1 *ngIf="!isDesktop" style="color: white; text-align: center">Use PC for THREE experience</h1>
+<div [class.about__exp]="isDesktop" [class.dn]="!isDesktop">
   <h1>CLICK TO EXPLORE</h1>
   <div class="about__preview">
     <div class="about__exp_plug"></div>
@@ -23,6 +24,9 @@
   </canvas>
   <div #exit class="about__exit dn" (click)="doBackMove()">
     <div class="exit-button"></div>
+  </div>
+  <div class="about__exit" (click)="toSite()">
+    <div style="left: 0" class="exit-button"></div>
   </div>
   <div #nav class="about__nav dn">
     <div [nextMove]="nextStep" [prevMove]="prevStep" [defaultMove]="defaultPosition" class="arrows-navigation"></div>

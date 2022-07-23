@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { workData } from "./workData";
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
+import { DisplayControllerService } from "../../displayController.service";
 
 @Component({
   selector: '.work',
@@ -11,12 +12,16 @@ import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 export class WorkComponent implements OnInit, AfterViewInit {
   public faArrowRight = faCircleRight;
 
+  public isThree: boolean = false;
+
   public workData: Array<workData> = [];
   public work: any;
   public step: number = 0
 
-  constructor() {
-
+  constructor(
+    private _displayController: DisplayControllerService
+  ) {
+    this._displayController.addListener(this)
   }
 
   ngOnInit(): void {
@@ -26,6 +31,10 @@ export class WorkComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
+  }
+
+  public onThreeStart(isThree: boolean): void {
+    this.isThree = isThree;
   }
 
   next() {

@@ -1,22 +1,25 @@
-<div class="footer__plug"></div>
-<div class="footer__container">
-  <div class="footer__wrapper">
-    <div class="footer__contacts">
-      <h3>I'm glad you made it to the end. I hope you enjoyed the ThreeJS embed. If you want to work together - here are my contacts!</h3>
-    </div>
-    <div class="footer__social">
-      <div class="effect thurio">
-        <div class="buttons">
-          <a href="#" class="git" title="Join us on Facebook"><fa-icon [icon]="faGit" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
-          <a href="#" class="telegram" title="Join us on Twitter"><fa-icon [icon]="faTelegram" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
-          <a href="#" class="vk" title="Join us on Google+"><fa-icon [icon]="faVk" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
-          <a href="#" class="in" title="Join us on Google+"><fa-icon [icon]="faLinkedIn" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
+<ng-container *ngIf="!isThree">
+  <div class="footer__plug"></div>
+  <div class="footer__container">
+    <div class="footer__wrapper">
+      <div class="footer__contacts">
+        <h3>I'm glad you made it to the end. I hope you enjoyed the ThreeJS embed. If you want to work together - here are my contacts!</h3>
+      </div>
+      <div class="footer__social">
+        <div class="effect thurio">
+          <div class="buttons">
+            <a href="#" class="git" title="Join us on Facebook"><fa-icon [icon]="faGit" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
+            <a href="#" class="telegram" title="Join us on Twitter"><fa-icon [icon]="faTelegram" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
+            <a href="#" class="vk" title="Join us on Google+"><fa-icon [icon]="faVk" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
+            <a href="#" class="in" title="Join us on Google+"><fa-icon [icon]="faLinkedIn" class="fa fa-facebook" aria-hidden="true"></fa-icon></a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="footer__mail">
-      <h4>Email: w184mee@gmail.com</h4>
-      <h4>Tel: +70123456789</h4>
+      <div class="footer__mail">
+        <h4>Email: w184mee@gmail.com</h4>
+        <h4>Tel: +70123456789</h4>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
+

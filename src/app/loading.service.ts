@@ -12,6 +12,7 @@ import {
   SavedMaterial, videoData
 } from "./components/canvas-members/data";
 import { MeshBasicMaterial } from "three";
+import { DeviceDetectorService } from "ngx-device-detector";
 
 @Injectable()
 export class LoadingService {
@@ -19,10 +20,15 @@ export class LoadingService {
   private materialContainer: SavedMaterial | any = {};
   private videoContainer: any = {};
 
+  //Screens
+  loadingScreen: any;
+  viewScreen: any;
+
   //_Data
-  private data: Array<GltfData>;
-  private photoData: Array<PhotoData>;
-  private videoData: any;
+  private data: Array<GltfData> = [];
+  private photoData: Array<PhotoData> = [];
+  private videoData: any = null;
+  public listener: Array<any> = [];
 
   private activeMeshes: any = {}
 
@@ -54,18 +60,40 @@ export class LoadingService {
     return this._scene;
   }
 
-  constructor(private _sceneService: SceneService) {
+  setLoadingScreen(loading: ElementRef) {
+    this.loadingScreen = loading;
+  }
+
+  setViewScreen(view: ElementRef) {
+    this.viewScreen = view;
+  }
+
+  setListener(component: any) {
+    this.listener.push(component);
+  }
+
+  constructor(
+    private _sceneService: SceneService
+  ) {
     this._textureLoader = new THREE.TextureLoader(this._loadingManager);
     this._gltfLoader = new GLTFLoader(this._loadingManager);
     this._dracoLoader = new DRACOLoader();
     this._dracoLoader.setDecoderPath('../../assets/draco/');
     this._gltfLoader.setDRACOLoader(this._dracoLoader);
-    this.data = meshData;
-    this.photoData = photoData;
-    this.videoData = videoData;
-    this.loadMeshData();
-    this.loadPhotoData();
-    this.loadVideoData();
+  }
+
+  public start(isDesktop: boolean) : void {
+    if (isDesktop) {
+      this.data = meshData;
+      this.photoData = photoData;
+      this.videoData = videoData;
+      this.loadMeshData();
+      this.loadPhotoData();
+      this.loadVideoData();
+    }
+    else {
+      this.nonDesktopVersion();
+    }
   }
 
   private loadMeshData(): void {
@@ -184,12 +212,21 @@ export class LoadingService {
   }
 
   public sceneReady(): void {
+    this.loadingScreen.nativeElement.classList.add('dn')
+    this.viewScreen.nativeElement.classList.remove('dn')
+    this.listener.forEach(component => component.onSceneLoad(true))
     this.meshContainer.forEach(mesh => this._scene.add(mesh));
     this._sceneService.createScene(this.scene, this._canvas, this.activeMeshes, this.materialContainer, this.videoContainer);
   }
 
   public getMaterialByKey(key: string): THREE.MeshBasicMaterial | undefined {
     return this.materialContainer[key]
+  }
+
+  public nonDesktopVersion(): void {
+    this.loadingScreen.nativeElement.classList.add('dn')
+    this.viewScreen.nativeElement.classList.remove('dn')
+    this.listener.forEach(component => component.onSceneLoad(false))
   }
 
 }

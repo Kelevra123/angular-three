@@ -1,5 +1,12 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, ViewEncapsulation } from '@angular/core';
-import { faCircleLeft, faCircleRight, faCoffee, faPauseCircle, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import { faCircleLeft, faCircleRight, faPauseCircle, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
+import { LoadingService } from "../../../loading.service";
 
 
 @Component({
@@ -28,6 +35,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
   public currentSlide = 0;
   public autoplay: any;
   public res: any = false;
+  public windowWidth: number = 0;
 
   @ViewChild('wrapper')
   public wrapper: any;
@@ -48,17 +56,31 @@ export class SliderComponent implements OnInit, AfterViewInit {
   @ViewChild('btnRight')
   public btnRight: any;
 
-  constructor() { }
+  constructor(
+    private _loadingService: LoadingService,
+  ) {
+    this._loadingService.setListener(this);
+  }
 
   ngOnInit(): void {
+    this.windowWidth = window.innerWidth
   }
 
   ngAfterViewInit(): void {
+  }
+
+  public onSceneLoad(isDesktop: boolean): void {
 
     this.slides = this.slidesHolder.nativeElement.children;
+    console.log(this.wrapper)
     this.descriptions = this.descriptionsHolder.nativeElement.children;
-    this.stepAngle = 2*Math.PI / this.slides.length
-    this.slider(this.circularSlider.nativeElement, 2000, 15, 600, 5000)
+    this.stepAngle = 2*Math.PI / this.slides.length;
+    if (this.windowWidth > 700) {
+      this.slider(this.circularSlider.nativeElement, 2000, 15, 600, 5000)
+    }
+    else {
+      this.slider(this.circularSlider.nativeElement, 1000, 15, 600, 5000)
+    }
   }
 
   public startSetup( sliderSize: any, slideSize: any, animationDuration:any, autoplayInterval: any ) {
@@ -71,11 +93,10 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   };
   //
-public slider( newSlider: any, sliderSize: number, slideSize: number, animationDuration: number, autoplayInterval: number, force?: boolean ) {
+public slider( newSlider: any, sliderSize: number, slideSize: number, animationDuration: number, autoplayInterval: number ) {
 
-    if (!force) {
-      this.startSetup(sliderSize, slideSize, animationDuration, autoplayInterval)
-    }
+
+    this.startSetup(sliderSize, slideSize, animationDuration, autoplayInterval)
     this.slidesHolder.nativeElement.style.transitionDuration = this.animationDuration + 'ms';
     this.setAutoplay();
     this.setNav();
@@ -105,34 +126,22 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
       }
 
     }
-
   };
 
-  onResize(event?: any) {
-
-    console.log(event)
-    if (event) {
-      if (event.target.innerWidth < 1200 && event.target.innerWidth > 700 && !this.res) {
-        this.slider(this.circularSlider.nativeElement, 100, this.slideSize, this.animationDuration, this.autoplayInterval, true)
-        this.res = true
-      }
-    }
-    else
-    {
-      console.log('ss')
+  onResize(force?: any) {
       let radius,
         w = this.wrapper.nativeElement.parentNode.getBoundingClientRect().width,
         h = this.wrapper.nativeElement.parentNode.getBoundingClientRect().height;
+        console.log(w, h)
 
       2*h <= w ? radius = h*this.sliderSize
         : radius = ( w/2 )*this.sliderSize;
 
       this.setSize( Math.round( radius ) );
-    }
-
   };
 
   setSize( radius: any ) {
+    console.log(radius)
 
     this.wrapper.nativeElement.style.width  = 2*radius + 'px';
     this.wrapper.nativeElement.style.height = radius + 'px';
@@ -236,7 +245,6 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
   removeStyle() {
 
     let x = this.currentSlide;
-    console.log(x)
 
     this.descriptions[x].classList.remove( 'descriptions__item_visible' );
     this.slides[x].classList.remove( 'slides-holder__item_active' )
@@ -247,7 +255,6 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
   addStyle() {
 
     let x = this.currentSlide;
-    console.log(x)
 
     this.descriptions[x].classList.add( 'descriptions__item_visible' );
     this.slides[x].classList.add( 'slides-holder__item_active' );

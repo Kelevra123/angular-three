@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faGithub, faLinkedin, faTelegram, faVk } from "@fortawesome/free-brands-svg-icons";
+import { DisplayControllerService } from "../../displayController.service";
 
 @Component({
   selector: '.footer',
@@ -14,9 +15,19 @@ export class FooterComponent implements OnInit {
   public faVk = faVk
   public faLinkedIn = faLinkedin
 
-  constructor() { }
+  public isThree: boolean = false;
+
+  constructor(
+    private _displayController: DisplayControllerService
+  ) {
+    this._displayController.addListener(this)
+  }
 
   ngOnInit(): void {
+  }
+
+  public onThreeStart(isThree: boolean): void {
+    this.isThree = isThree;
   }
 
 }
