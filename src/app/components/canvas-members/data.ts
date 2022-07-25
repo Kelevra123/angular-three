@@ -47,8 +47,8 @@ export const photoData: Array<PhotoData>  = [
 ];
 
 export const meshData: Array<GltfData> = [
-  {gltf: '../assets/walls/frontWall.glb', texture: '../assets/walls/frontWall.jpg'},
-  {gltf: '../assets/walls/sideWalls.glb', texture: '../assets/walls/sideWalls.jpg'},
+  {gltf: '../assets/walls/frontWall3.glb', texture: '../assets/walls/frontWalle.jpg'},
+  {gltf: '../assets/walls/sideWalls.glb', texture: '../assets/walls/sideWallse.jpg'},
   {gltf: '../assets/curtains/curtains.glb', texture: '../assets/curtains/curtains.jpg'},
   {gltf: '../assets/table/pc2.glb', texture: '../assets/table/pc.jpg'},
   {gltf: '../assets/floor/floor1.glb', texture: '../assets/floor/newFloor1.jpg'},
@@ -57,7 +57,12 @@ export const meshData: Array<GltfData> = [
   {gltf: '../assets/decor/coffeeTable.glb', texture: '../assets/decor/coffeeTable.jpg'},
   {gltf: '../assets/decor/sofa.glb', texture: '../assets/decor/sofa.jpg'},
   {gltf: '../assets/decor/window.glb', texture: '../assets/decor/window.jpg'},
-  {gltf: '../assets/decor/rightWallDecor.glb', texture: '../assets/decor/rightWallDecor.jpg'},
+  {gltf: '../assets/decor/car.glb', texture: '../assets/decor/carDream4.jpg'},
+  {gltf: '../assets/decor/gamedev.glb', texture: '../assets/decor/gamedev.jpg'},
+  {gltf: '../assets/decor/guitDream.glb', texture: '../assets/decor/guitDream.jpg'},
+  {gltf: '../assets/decor/house.glb', texture: '../assets/decor/houseDream.jpg'},
+  {gltf: '../assets/decor/ny.glb', texture: '../assets/decor/nyDream.jpg'},
+  {gltf: '../assets/decor/rightWalla.glb', texture: '../assets/decor/rightWalla.jpg'},
   {gltf: '../assets/bookshelf/otherBooks.glb', texture: '../assets/bookshelf/otherBooks.jpg'},
   {gltf: '../assets/bookshelf/bookClear.glb', texture: '../assets/bookshelf/bookClean.jpg'},
   {gltf: '../assets/bookshelf/bookMicro.glb', texture: '../assets/bookshelf/bookMicro.jpg'},
@@ -66,7 +71,7 @@ export const meshData: Array<GltfData> = [
   {gltf: '../assets/bookshelf/garry.glb', texture: '../assets/bookshelf/GarryP.jpg'},
   {gltf: '../assets/bookshelf/bookshelf.glb', texture: '../assets/bookshelf/bookshelf.jpg', handleMeshes: true, textureName: TextureEnum.BOOKSHELF},
   {gltf: '', texture: '../assets/bookshelf/bookshelfActive.jpg', textureName: TextureEnum.BOOKSHELF_ACTIVE},
-  {gltf: '../assets/table/mainTable.glb', texture: '../assets/table/mainTable.jpg', handleMeshes: true, textureName: TextureEnum.MAIN_TABLE},
+  {gltf: '../assets/table/bTable.glb', texture: '../assets/table/bTable.jpg', handleMeshes: true, textureName: TextureEnum.MAIN_TABLE},
   {gltf: '', texture: '../assets/table/emisText.jpg', textureName: TextureEnum.MAIN_TABLE_ACTIVE},
   {gltf: '../assets/photo/photoWex.glb', texture: '../assets/photo/photoWex.jpg', handleMeshes: true, textureName: TextureEnum.PHOTO},
   {gltf: '', texture: '../assets/photo/photoWexEmis.jpg', textureName: TextureEnum.PHOTO_ACTIVE},

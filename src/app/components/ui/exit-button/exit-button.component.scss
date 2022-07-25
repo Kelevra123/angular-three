@@ -10,9 +10,10 @@ $speed: .5s;
     width: $size;
     height: $size;
     position: absolute;
-    right: 5%;
+    //right: 5%;
     top: 5%;
-    background: #455A64;
+    //background: #455A64;
+    //background: red;
     border-radius: 50%;
     box-shadow: 0 0 20px -5px rgba(white, .5);
     transition: .25s ease-in-out;
@@ -27,6 +28,7 @@ $speed: .5s;
   }
     &:hover {
       background: #37474F;
+      //background: #e91e63;
       span {
         width: 15px;
       }

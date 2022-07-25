@@ -36,7 +36,10 @@ export class LoadingService {
   private _canvas: any = null;
 
   private _loadingManager = new THREE.LoadingManager(
-    () => this.sceneReady(),
+    () => {
+      console.log('ready')
+      this.sceneReady();
+    },
     (itemUri: string, itemLoaded: number, total: number) => {},
   )
 

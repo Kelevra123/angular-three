@@ -38,6 +38,9 @@ export class AboutComponent implements AfterViewInit, OnInit{
   @ViewChild('explore')
   private explore!: ElementRef;
 
+  @ViewChild('exitSite')
+  private exitSite!: ElementRef;
+
   private get canvas(): HTMLCanvasElement {
     return this.canvasRef.nativeElement
   }
@@ -46,6 +49,9 @@ export class AboutComponent implements AfterViewInit, OnInit{
   public nextStep: any;
   public prevStep: any;
   public defaultPosition: any
+  public size: any
+
+  public isThree: boolean = false
 
   constructor(
     private _loadingService: LoadingService,
@@ -57,7 +63,13 @@ export class AboutComponent implements AfterViewInit, OnInit{
 
   ngOnInit(): void {
     this.resizeSubscription = this._resizeService.onResize$
-      .subscribe(size => this.onResize(size))
+      .subscribe(size =>  {
+        if (this.canvasRef)
+        {
+          this.onResize(size)
+          this.size = size
+        }
+      })
   }
 
   ngAfterViewInit(): void {
@@ -70,6 +82,7 @@ export class AboutComponent implements AfterViewInit, OnInit{
       this._sceneService.setVideoToScene(this.pcVideo, TextureEnum.PC_VIDEO);
       this._sceneService.setExitButton(this.exit);
       this._sceneService.setExploreButton(this.explore);
+      this._sceneService.setExitToSiteButton(this.exitSite);
       this.nextStep = this.stepToNextPhoto.bind(this);
       this.prevStep = this.stepToPrevPhoto.bind(this);
       this.defaultPosition = this.defaultPositionInPhotoMode.bind(this);
@@ -98,6 +111,7 @@ export class AboutComponent implements AfterViewInit, OnInit{
   }
 
   public toFullScreen(): void {
+    this.isThree = true
     this.canvasRef.nativeElement.style.display = 'block'
     this.canvasRef.nativeElement.style.position = 'fixed'
     this.canvasRef.nativeElement.style.top = '0'
@@ -107,12 +121,15 @@ export class AboutComponent implements AfterViewInit, OnInit{
     this.canvasRef.nativeElement.style.zIndex = '100'
     this.canvasRef.nativeElement.classList.remove('dn')
     this.canvasRef.nativeElement.classList.add('fullScreen')
-    this.onResize()
     this._displayController.startThreeExp()
+    this.exitSite.nativeElement.classList.remove('dn')
+    this.onResize(this.size)
   }
 
   public toSite(): void {
+    this.isThree = false
     this.canvasRef.nativeElement.style.display = 'none';
+    this.exitSite.nativeElement.classList.add('dn')
     this._displayController.endThreeExp()
   }
 

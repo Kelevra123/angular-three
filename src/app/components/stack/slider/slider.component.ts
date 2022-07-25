@@ -64,6 +64,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.windowWidth = window.innerWidth
+    console.log('sd')
   }
 
   ngAfterViewInit(): void {
@@ -71,8 +72,8 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   public onSceneLoad(isDesktop: boolean): void {
 
+    console.log('sd')
     this.slides = this.slidesHolder.nativeElement.children;
-    console.log(this.wrapper)
     this.descriptions = this.descriptionsHolder.nativeElement.children;
     this.stepAngle = 2*Math.PI / this.slides.length;
     if (this.windowWidth > 700) {

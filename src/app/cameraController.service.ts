@@ -48,9 +48,9 @@ export class CameraControllerService {
       case ControlEnum.TABLE_MOVE:
         this.toTable(callback, materialCallback, setTriggerCallback, videoCallback);
         break;
-      // case ControlEnum.BOOKSHELF_MOVE:
-      //   this.toBooks();
-      //   break;
+      case ControlEnum.BOOKSHELF_MOVE:
+        this.toBooks(callback, materialCallback, setTriggerCallback);
+        break;
       case ControlEnum.PHOTO_MOVE:
         this.toPhoto(callback, materialCallback, setTriggerCallback);
         break;
@@ -59,6 +59,9 @@ export class CameraControllerService {
         break;
       case ControlEnum.EXIT_PHOTO_MOVE:
         this.exitPhoto(callback, materialCallback, setTriggerCallback);
+        break;
+      case ControlEnum.EXIT_BOOKSHELF_MOVE:
+        this.exitBook(callback, materialCallback, setTriggerCallback);
         break;
     }
   }
@@ -132,7 +135,45 @@ export class CameraControllerService {
     })
   }
 
-  private toBooks(): void {
+  private toBooks(callback?: Function| null, materialCallback?: Function | null,
+                  setTriggerCallback?: Function | null): void {
+    if (callback) callback(false);
+    if (materialCallback) materialCallback();
+    if (setTriggerCallback) setTriggerCallback(ControlEnum.EXIT_BOOKSHELF_MOVE);
+
+    this._camera.rotation.x = 0;
+    gsap.to(this._camera.position, {
+      duration: 1,
+      z: -14,
+      x: -14,
+    });
+    gsap.to(this._camera.rotation, {
+      duration: 1,
+      y: Math.PI / 2
+    });
+  }
+
+  private exitBook(callback?: Function | null, materialCallback?: Function | null, setTriggerCallback?: Function | null): void {
+    if (callback)  callback(true);
+    if (materialCallback) materialCallback();
+    if (setTriggerCallback) setTriggerCallback();
+
+    this.nav.nativeElement.classList.add('dn')
+    this.mode = '';
+    this._camera.rotation.x = 0;
+    this._controls.enabled = true
+    gsap.to(this._camera.position, {
+      x: 0,
+      y: 18,
+      z: 95,
+      duration: 1
+    })
+    gsap.to(this._camera.rotation, {
+      x: -0.186,
+      y: 0,
+      z: 0,
+      duration: 1
+    })
   }
 
   public stepToNextPhoto(): void {

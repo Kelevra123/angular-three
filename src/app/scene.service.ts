@@ -2,7 +2,7 @@ import { ElementRef, Injectable } from "@angular/core";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from 'gsap'
-import { ControlEnum, TextureEnum } from "./components/helper.enum";
+import { ControlEnum, ResizeEnum, TextureEnum } from "./components/helper.enum";
 import { SavedMaterial } from "./components/canvas-members/data";
 import { CameraControllerService } from "./cameraController.service";
 
@@ -39,7 +39,9 @@ export class SceneService {
   private renderer!: THREE.WebGLRenderer;
   private scene!: THREE.Scene;
   private canvas: any = null;
-  private exploreButton: any;
+  private exploreButton!: ElementRef;
+  private exitSiteButton!: ElementRef;
+  private resizeState: string = ResizeEnum.NONE;
 
   //Move control members
   private triggerActive: string | undefined = '';
@@ -84,6 +86,10 @@ export class SceneService {
     this.exploreButton = el;
   }
 
+  setExitToSiteButton(exitSite: ElementRef) {
+    this.exitSiteButton = exitSite
+  }
+
   constructor(
     private _cameraController: CameraControllerService
   ) {
@@ -100,11 +106,13 @@ export class SceneService {
 
   public onClick(event: MouseEvent): void {
     this._cameraController.doMove(this.triggerActive, this.toggleRaycasterActive.bind(this), this.updateMaterial.bind(this),
-      this.setTriggerActive.bind(this), this.playVideo.bind(this))
+                                  this.setTriggerActive.bind(this), this.playVideo.bind(this))
   }
 
   public doBackMove(): void {
-    this._cameraController.doMove(this.triggerActive, this.toggleRaycasterActive.bind(this), null, null, this.playVideo.bind(this))
+    this._cameraController.doMove(this.triggerActive, this.toggleRaycasterActive.bind(this),
+                      null, null, this.playVideo.bind(this))
+    this.exitSiteButton.nativeElement.classList.remove('dn')
   }
 
   public onResize(size?: any) : void {
@@ -123,10 +131,21 @@ export class SceneService {
     this.camera.aspect = aspectRatio
     this.camera.updateProjectionMatrix()
 
-    if (this.canvas.clientWidth < 1000) {
+    if (this.sizes.width < 1000 && this.sizes.width > 800 && this.resizeState != ResizeEnum.MEDIUM)
+    {
       this.camera.fov = 55
+      this.resizeState = ResizeEnum.MEDIUM
     }
-
+    else if (this.sizes.width > 1200 && this.resizeState != ResizeEnum.MAX)
+    {
+      this.camera.fov = this.fieldOfView
+      this.resizeState = ResizeEnum.MAX
+    }
+    else if (this.sizes.width < 800 && this.resizeState != ResizeEnum.SMALL)
+    {
+      this.camera.fov = 60
+      this.resizeState = ResizeEnum.SMALL
+    }
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
 
@@ -216,6 +235,7 @@ export class SceneService {
       this.control.enabled = false;
       this.camera.updateProjectionMatrix()
       this.exitButton?.nativeElement.classList.remove('dn')
+      this.exitSiteButton.nativeElement.classList.add('dn')
     }
   }
 

@@ -1,4 +1,4 @@
-<div class="about__text">
+<div *ngIf="!isThree" class="about__text">
   <div class="about__text_by">
     <h1 class="about__text_title">Hi!</h1>
     <img class="about__fly-image" src="../../../assets/mainObj.png" alt="">
@@ -23,10 +23,10 @@
     <video #pcVideo [muted]="true" [loop]="true" src="../../assets/video/GLSL.mp4"></video>
   </canvas>
   <div #exit class="about__exit dn" (click)="doBackMove()">
-    <div class="exit-button"></div>
+    <div [right]="5" [bg]="'#455A64'" class="exit-button"></div>
   </div>
-  <div class="about__exit" (click)="toSite()">
-    <div style="left: 0" class="exit-button"></div>
+  <div #exitSite class="about__site dn" (click)="toSite()">
+    <div [left]="5" [bg]="'red'" class="exit-button"></div>
   </div>
   <div #nav class="about__nav dn">
     <div [nextMove]="nextStep" [prevMove]="prevStep" [defaultMove]="defaultPosition" class="arrows-navigation"></div>

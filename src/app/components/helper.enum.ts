@@ -21,3 +21,10 @@ export enum ControlEnum {
   EXIT_BOOKSHELF_MOVE = 'EXIT_BOOKSHELF_MOVE',
   EXIT_PHOTO_MOVE = 'EXIT_PHOTO_MOVE'
 }
+
+export enum ResizeEnum {
+  NONE = '',
+  MAX = 'MAX',
+  MEDIUM = 'MEDIUM',
+  SMALL = 'SMALL'
+}

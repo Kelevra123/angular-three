@@ -14,10 +14,11 @@
 
   @media (width < 1200px) {
     flex-direction: column;
+    height: 100%;
   }
 
   &__fly-image {
-    width: 25%;
+    width: 15%;
     border-radius: 15px;
     animation: mainObject ease-in-out 5s infinite;
     @keyframes mainObject {
@@ -67,6 +68,11 @@
     -webkit-box-shadow: -4px -1px 17px 28px rgba(70, 130, 180, 0.2);
     -moz-box-shadow: -4px -1px 17px 28px rgba(70, 130, 180, 0.2);
     box-shadow: -4px -1px 17px 28px rgba(70, 130, 180, 0.2);
+
+    @media (width < 1200px) {
+      width: 90%;
+      min-height: 500px;
+    }
   }
 
   &__text
@@ -112,9 +118,13 @@
       align-items: center;
 
       & img {
-        @media (width < 700px) {
-          width: 15%;
+        @media (width < 1200px) {
+          width: 10%;
         }
+
+        //@media (width < 700px) {
+        //  width: 15%;
+        //}
       }
     }
   }
@@ -145,8 +155,8 @@
     }
 
     @media (width < 1200px) {
-      height: 45%;
-      width: 55%;
+      width: 100%;
+      min-height: 800px;
     }
 
     @media (width < 700px) {
