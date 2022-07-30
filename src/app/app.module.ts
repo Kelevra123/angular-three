@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
-import { HeaderComponent } from './components/header/header.component';
 import { AboutComponent } from './components/about/about.component';
 import { LoadingService } from "./loading.service";
 import { SceneService } from "./scene.service";
@@ -30,7 +29,6 @@ import { DisplayControllerService } from "./displayController.service";
   declarations: [
     AppComponent,
     WrapperComponent,
-    HeaderComponent,
     AboutComponent,
     ExitButtonComponent,
     ArrowsNavigationComponent,

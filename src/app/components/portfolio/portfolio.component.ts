@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   AfterViewInit,
   Component,
   ElementRef,
@@ -37,19 +36,5 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.children = [...this.container.nativeElement.children]
-  }
-
-  onClick(id: number) {
-    // const box = this.children[id].firstChild
-    // if (this.children[id].classList.contains('port-active'))
-    // {
-    //   this.children[id].classList.remove('port-active')
-    //   box.classList.add('port-card-hover')
-    // }
-    // else
-    // {
-    //   this.children[id].classList.add('port-active')
-    //   box.classList.remove('port-card-hover')
-    // }
   }
 }

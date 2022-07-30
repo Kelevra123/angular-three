@@ -1,9 +1,7 @@
 import { ElementRef, Injectable } from "@angular/core";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import gsap from 'gsap'
 import { ControlEnum, ResizeEnum, TextureEnum } from "./components/helper.enum";
-import { SavedMaterial } from "./components/canvas-members/data";
 import { CameraControllerService } from "./cameraController.service";
 
 @Injectable()
@@ -62,7 +60,6 @@ export class SceneService {
   //Video
   private videoArray: any = {};
   private videoContainer: any;
-  private videoTexture: any;
 
   //Intersects
   private intersectsStatus: boolean = false;
@@ -75,20 +72,28 @@ export class SceneService {
   private materialContainer: any = {};
   private status: boolean = false;
 
+  private setResizeState(state: string): void {
+    this.resizeState = state;
+  }
+
+  private setCameraFOV(fov: number): void {
+    this.camera.fov = fov;
+  }
+
   public setTriggerActive(trigger: string | undefined): void {
     this.triggerActive = trigger;
   }
 
   public setExitButton(element: ElementRef): void {
-    this.exitButton = element
+    this.exitButton = element;
   }
 
   public setExploreButton(el: ElementRef): void {
     this.exploreButton = el;
   }
 
-  setExitToSiteButton(exitSite: ElementRef) {
-    this.exitSiteButton = exitSite
+  public setExitToSiteButton(exitSite: ElementRef) {
+    this.exitSiteButton = exitSite;
   }
 
   public setStatus(isStatus: boolean): void {
@@ -101,7 +106,7 @@ export class SceneService {
     this.activeNow = {
       mesh: [],
       material: []
-    }
+    };
   }
 
   public onMouseMove(event: MouseEvent): void {
@@ -111,13 +116,13 @@ export class SceneService {
 
   public onClick(event: MouseEvent): void {
     this._cameraController.doMove(this.triggerActive, this.toggleRaycasterActive.bind(this), this.updateMaterial.bind(this),
-                                  this.setTriggerActive.bind(this), this.playVideo.bind(this))
+                                  this.setTriggerActive.bind(this), this.playVideo.bind(this));
   }
 
   public doBackMove(): void {
     this._cameraController.doMove(this.triggerActive, this.toggleRaycasterActive.bind(this),
-                      null, null, this.playVideo.bind(this))
-    this.exitSiteButton.nativeElement.classList.remove('dn')
+                      null, null, this.playVideo.bind(this));
+    this.exitSiteButton.nativeElement.classList.remove('dn');
   }
 
   public onResize(size?: any) : void {
@@ -132,24 +137,24 @@ export class SceneService {
     }
 
     //Update Camera
-    const aspectRatio = this.getAspectRatio()
-    this.camera.aspect = aspectRatio
-    this.camera.updateProjectionMatrix()
+    const aspectRatio = this.getAspectRatio();
+    this.camera.aspect = aspectRatio;
+    this.camera.updateProjectionMatrix();
 
     if (this.sizes.width < 1000 && this.sizes.width > 800 && this.resizeState != ResizeEnum.MEDIUM)
     {
-      this.camera.fov = 55
-      this.resizeState = ResizeEnum.MEDIUM
+      this.setCameraFOV(55);
+      this.setResizeState(ResizeEnum.MEDIUM);
     }
     else if (this.sizes.width > 1200 && this.resizeState != ResizeEnum.MAX)
     {
-      this.camera.fov = this.fieldOfView
-      this.resizeState = ResizeEnum.MAX
+      this.setCameraFOV(this.fieldOfView);
+      this.setResizeState(ResizeEnum.MAX);
     }
     else if (this.sizes.width < 800 && this.resizeState != ResizeEnum.SMALL)
     {
-      this.camera.fov = 60
-      this.resizeState = ResizeEnum.SMALL
+      this.setCameraFOV(60);
+      this.setResizeState(ResizeEnum.SMALL);
     }
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
@@ -176,7 +181,7 @@ export class SceneService {
     {
       if (this.videoContainer.hasOwnProperty(key))
       {
-        this.videoContainer[key].material = this.materialContainer[key]
+        this.videoContainer[key].material = this.materialContainer[key];
       }
     }
 
@@ -192,7 +197,7 @@ export class SceneService {
     this.camera.position.set(this.cameraX, this.cameraY, this.cameraZ);
     this.camera.rotation.x = this.cameraRotateX;
     this.camera.updateProjectionMatrix();
-    this._cameraController.setCamera(this.camera)
+    this._cameraController.setCamera(this.camera);
 
     //*Controls
     this.control = new OrbitControls(this.camera, this.canvas);
@@ -205,7 +210,6 @@ export class SceneService {
     this._cameraController.setControls(this.control);
 
     if (this.exploreButton) {
-      // this.exploreButton.nativeElement.style.visibility = 'visible';
       this.exploreButton.nativeElement.classList.add('visible');
     }
 
@@ -223,13 +227,13 @@ export class SceneService {
     }
 
     this.needUpdate = false;
-    this.triggerActive = undefined
+    this.setTriggerActive(undefined);
   }
 
   private toggleRaycasterActive(isActive: boolean, trigger?: string | undefined): void {
     if (isActive)
     {
-      this.exitButton?.nativeElement.classList.add('dn')
+        this.exitButton?.nativeElement.classList.add('dn');
         this.freeMode = true;
         this.bookshelfActive = false;
         this.mainTableActive = false;
@@ -243,9 +247,9 @@ export class SceneService {
       this.photoActive = true;
       this.control.reset();
       this.control.enabled = false;
-      this.camera.updateProjectionMatrix()
-      this.exitButton?.nativeElement.classList.remove('dn')
-      this.exitSiteButton.nativeElement.classList.add('dn')
+      this.camera.updateProjectionMatrix();
+      this.exitButton?.nativeElement.classList.remove('dn');
+      this.exitSiteButton.nativeElement.classList.add('dn');
     }
   }
 
@@ -276,27 +280,24 @@ export class SceneService {
   private backToStandardMesh(): void {
     if (!this.mainTableIntersects.length  && this.needUpdate && this.triggerActive === ControlEnum.TABLE_MOVE)
     {
-      // this.updateMaterial(this.mainTable, this.materialContainer[TextureEnum.MAIN_TABLE]);
-      this.updateMaterial()
+      this.updateMaterial();
     }
     else if (!this.bookshelfIntersects.length && this.needUpdate && this.triggerActive === ControlEnum.BOOKSHELF_MOVE)
     {
-      // this.updateMaterial(this.bookshelf, this.materialContainer[TextureEnum.BOOKSHELF]);
-      this.updateMaterial()
+      this.updateMaterial();
     }
     else if (!this.photoIntersects.length && this.needUpdate && this.triggerActive === ControlEnum.PHOTO_MOVE)
     {
-      // this.updateMaterial(this.photo, this.materialContainer[TextureEnum.PHOTO]);
-      this.updateMaterial()
+      this.updateMaterial();
     }
   }
 
   private triggerMeshByCursor(): void {
     if (this.mainTableIntersects.length && !this.mainTableActive && !this.needUpdate)
     {
-      this.containActiveElement(this.mainTable, this.materialContainer[TextureEnum.MAIN_TABLE])
+      this.containActiveElement(this.mainTable, this.materialContainer[TextureEnum.MAIN_TABLE]);
 
-      this.triggerActive = ControlEnum.TABLE_MOVE;
+      this.setTriggerActive(ControlEnum.TABLE_MOVE);
       this.needUpdate = true;
       for (const object of this.mainTable)
       {
@@ -306,9 +307,9 @@ export class SceneService {
 
     else if (this.bookshelfIntersects.length && !this.bookshelfActive && !this.needUpdate)
     {
-      this.containActiveElement(this.bookshelf, this.materialContainer[TextureEnum.BOOKSHELF])
+      this.containActiveElement(this.bookshelf, this.materialContainer[TextureEnum.BOOKSHELF]);
 
-      this.triggerActive = ControlEnum.BOOKSHELF_MOVE;
+      this.setTriggerActive(ControlEnum.BOOKSHELF_MOVE);
       this.needUpdate = true;
       for (const object of this.bookshelf)
       {
@@ -318,9 +319,9 @@ export class SceneService {
 
     else if (this.photoIntersects.length && !this.photoActive && !this.needUpdate)
     {
-      this.containActiveElement(this.photo, this.materialContainer[TextureEnum.PHOTO])
+      this.containActiveElement(this.photo, this.materialContainer[TextureEnum.PHOTO]);
 
-      this.triggerActive = ControlEnum.PHOTO_MOVE;
+      this.setTriggerActive(ControlEnum.PHOTO_MOVE);
       this.needUpdate = true;
       for (const object of this.photo)
       {

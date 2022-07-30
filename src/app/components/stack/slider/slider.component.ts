@@ -104,10 +104,6 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
     this.addStyle();
     this.resetNavs()
 
-    // window.onresize = (event) =>  {
-    //   this.onResize(event)
-    // }
-
     let _this = this;
     this.btnAutoplay.nativeElement.onclick = function() {
 

@@ -1,5 +1,5 @@
-import { AfterViewInit, ElementRef, Injectable, ViewChild } from "@angular/core";
-import * as THREE from 'three'
+import { ElementRef, Injectable } from "@angular/core";
+import * as THREE from 'three';
 import { SceneService } from "./scene.service";
 import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
@@ -12,7 +12,6 @@ import {
   SavedMaterial, videoData
 } from "./components/canvas-members/data";
 import { MeshBasicMaterial } from "three";
-import { DeviceDetectorService } from "ngx-device-detector";
 
 @Injectable()
 export class LoadingService {
@@ -41,18 +40,18 @@ export class LoadingService {
       this.sceneReady();
     },
     (itemUri: string, itemLoaded: number, total: number) => {},
-  )
+  );
 
   private readonly _textureLoader: any = null;
   private readonly _gltfLoader: any = null;
   private readonly _dracoLoader: any = null;
 
   public get textureLoader() : THREE.TextureLoader {
-    return this._textureLoader
+    return this._textureLoader;
   }
 
   public get gltfLoader(): GLTFLoader {
-    return this._gltfLoader
+    return this._gltfLoader;
   }
 
   public get loadingManager () {
@@ -113,9 +112,9 @@ export class LoadingService {
         if (obj.gltf.length !== 0)
         {
           this.gltfLoader.load(obj.gltf,
-            (gltf): void => this.fetchChildFromGLTF(gltf, material, obj))
+            (gltf): void => this.fetchChildFromGLTF(gltf, material, obj));
         }
-    })
+    });
   }
 
   private loadPhotoData(): void {
@@ -127,7 +126,7 @@ export class LoadingService {
       const matContainer: any = {}
 
       for (let key in data.texture) {
-        const currentTexture = this.textureLoader.load(data.texture[key])
+        const currentTexture = this.textureLoader.load(data.texture[key]);
         currentTexture.flipY = false;
 
         const currentMaterial = new MeshBasicMaterial({map: currentTexture});
@@ -135,7 +134,7 @@ export class LoadingService {
       }
 
       photoMaterials[data.id] = matContainer;
-    })
+    });
 
     // Add materials to gltf
     this.photoData.forEach(data => {
@@ -146,14 +145,14 @@ export class LoadingService {
 
             if (child.type === HelperEnum.MESH)
             {
-              const name = child.name
-              child.material = photoMaterials[data.id][name]
+              const name = child.name;
+              child.material = photoMaterials[data.id][name];
 
-              this.addToScene(child)
+              this.addToScene(child);
             }
 
-          })
-        })
+          });
+        });
 
     })
   }
@@ -166,9 +165,9 @@ export class LoadingService {
             if (child.type === HelperEnum.MESH) {
               this.videoContainer[data.id] = child;
             }
-          })
-        })
-    })
+          });
+        });
+    });
   }
 
   public encodeVideoToTexture(videoElement: ElementRef, key: string): void {
@@ -201,9 +200,9 @@ export class LoadingService {
           this.activeMeshes[obj.textureName].push(child);
         }
 
-        this.addToScene(child)
+        this.addToScene(child);
       }
-    })
+    });
   }
 
   public addToScene(mesh: THREE.Object3D): void {
@@ -215,21 +214,21 @@ export class LoadingService {
   }
 
   public sceneReady(): void {
-    this.loadingScreen.nativeElement.classList.add('dn')
-    this.viewScreen.nativeElement.classList.remove('dn')
-    this.listener.forEach(component => component.onSceneLoad(true))
+    this.loadingScreen.nativeElement.classList.add('dn');
+    this.viewScreen.nativeElement.classList.remove('dn');
+    this.listener.forEach(component => component.onSceneLoad(true));
     this.meshContainer.forEach(mesh => this._scene.add(mesh));
     this._sceneService.createScene(this.scene, this._canvas, this.activeMeshes, this.materialContainer, this.videoContainer);
   }
 
   public getMaterialByKey(key: string): THREE.MeshBasicMaterial | undefined {
-    return this.materialContainer[key]
+    return this.materialContainer[key];
   }
 
   public nonDesktopVersion(): void {
-    this.loadingScreen.nativeElement.classList.add('dn')
-    this.viewScreen.nativeElement.classList.remove('dn')
-    this.listener.forEach(component => component.onSceneLoad(false))
+    this.loadingScreen.nativeElement.classList.add('dn');
+    this.viewScreen.nativeElement.classList.remove('dn');
+    this.listener.forEach(component => component.onSceneLoad(false));
   }
 
 }

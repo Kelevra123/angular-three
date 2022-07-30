@@ -71,22 +71,22 @@ export class CameraControllerService {
     if (materialCallback) materialCallback();
     if (setTriggerCallback) setTriggerCallback();
 
-    this.nav.nativeElement.classList.add('dn')
+    this.nav.nativeElement.classList.add('dn');
     this.mode = '';
     this._camera.rotation.x = 0;
-    this._controls.enabled = true
+    this._controls.enabled = true;
     gsap.to(this._camera.position, {
       x: 0,
       y: 18,
       z: 95,
       duration: 1
-    })
+    });
     gsap.to(this._camera.rotation, {
       x: -0.186,
       y: 0,
       z: 0,
       duration: 1
-    })
+    });
   }
 
   private toPhoto(callback?: Function | null, materialCallback?: Function | null, setTriggerCallback?: Function | null): void {
@@ -117,7 +117,7 @@ export class CameraControllerService {
       duration: 1,
       z: 95,
       y: 18
-    })
+    });
     this._controls.enabled = true;
   }
 
@@ -132,7 +132,7 @@ export class CameraControllerService {
       duration: 1,
       z: 1,
       y: 17
-    })
+    });
   }
 
   private toBooks(callback?: Function| null, materialCallback?: Function | null,
@@ -158,32 +158,32 @@ export class CameraControllerService {
     if (materialCallback) materialCallback();
     if (setTriggerCallback) setTriggerCallback();
 
-    this.nav.nativeElement.classList.add('dn')
+    this.nav.nativeElement.classList.add('dn');
     this.mode = '';
     this._camera.rotation.x = 0;
-    this._controls.enabled = true
+    this._controls.enabled = true;
     gsap.to(this._camera.position, {
       x: 0,
       y: 18,
       z: 95,
       duration: 1
-    })
+    });
     gsap.to(this._camera.rotation, {
       x: -0.186,
       y: 0,
       z: 0,
       duration: 1
-    })
+    });
   }
 
   public stepToNextPhoto(): void {
     if (this.mode === ControlEnum.PHOTO_MOVE)
     {
-      this.stepCount++
+      this.stepCount++;
       if (this.stepCount === this.stepPhotoData.length)
       {
         this.stepCount = -1;
-        this.defaultPositionInPhotoMode()
+        this.defaultPositionInPhotoMode();
       }
       else
       {
@@ -193,7 +193,7 @@ export class CameraControllerService {
           y: step.y,
           z: step.z,
           duration: 0.5
-        })
+        });
       }
     }
   }
@@ -205,7 +205,7 @@ export class CameraControllerService {
       if (this.stepCount < 0)
       {
         this.stepCount =-1;
-        this.defaultPositionInPhotoMode()
+        this.defaultPositionInPhotoMode();
       }
       else {
         const step = this.stepPhotoData[this.stepCount];
@@ -214,7 +214,7 @@ export class CameraControllerService {
           y: step.y,
           z: step.z,
           duration: 0.5
-        })
+        });
       }
     }
   }
@@ -228,7 +228,7 @@ export class CameraControllerService {
         y: this.cameraDefaultPositionInPhotoMode.y,
         z: this.cameraDefaultPositionInPhotoMode.z,
         duration: 0.5
-      })
+      });
     }
   }
 }

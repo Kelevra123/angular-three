@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import * as THREE from 'three'
 import { LoadingService } from "../../loading.service";
 import { SceneService } from "../../scene.service";
 import { TextureEnum } from "../helper.enum";

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faGithub, faLinkedin, faTelegram, faVk } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faLinkedin, faTelegram, faVk } from "@fortawesome/free-brands-svg-icons";
 import { DisplayControllerService } from "../../displayController.service";
 
 @Component({

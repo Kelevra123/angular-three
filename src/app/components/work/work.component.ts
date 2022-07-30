@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { workData } from "./workData";
 import { faCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { DisplayControllerService } from "../../displayController.service";
