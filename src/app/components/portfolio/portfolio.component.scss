@@ -89,14 +89,19 @@
 
 .portfolio__card {
   position: relative;
-  min-width: 320px;
-  height: 440px;
+  min-width: 625px;
+  height: 540px;
   box-shadow: inset 5px 5px 5px rgb(76 126 235 / 20%),
   inset -5px -5px 15px rgb(255 255 255 / 10%), 5px 5px 15px rgb(0 0 0 / 30%),
   -5px -5px 15px rgb(255 255 255 / 10%);
   border-radius: 15px;
   margin: 30px;
   transition: all 0.5s;
+
+  @media (width < 700px) {
+    min-width: 300px;
+    height: 440px;
+  }
 
   &_image {
     height: 70%;
@@ -218,8 +223,8 @@
 }
 
 .port-card-hover {
-  &:hover {
-    transform: translateY(-50px);
-  }
+  //&:hover {
+  //  transform: translateY(-50px);
+  //}
 }
 

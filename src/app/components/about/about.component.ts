@@ -42,7 +42,7 @@ export class AboutComponent implements AfterViewInit, OnInit{
   private exitSite!: ElementRef;
 
   private get canvas(): HTMLCanvasElement {
-    return this.canvasRef.nativeElement
+    return this.canvasRef.nativeElement;
   }
 
   private resizeSubscription: any;
@@ -66,15 +66,15 @@ export class AboutComponent implements AfterViewInit, OnInit{
       .subscribe(size =>  {
         if (this.canvasRef)
         {
-          this.onResize(size)
-          this.size = size
+          this.onResize(size);
+          this.size = size;
         }
       })
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this._loadingService.canvas(this.canvas)
+      this._loadingService.canvas(this.canvas);
       this._loadingService.encodeVideoToTexture(this.laptopVideo, TextureEnum.LAPTOP_VIDEO);
       this._loadingService.encodeVideoToTexture(this.pcVideo, TextureEnum.PC_VIDEO);
 
@@ -83,9 +83,11 @@ export class AboutComponent implements AfterViewInit, OnInit{
       this._sceneService.setExitButton(this.exit);
       this._sceneService.setExploreButton(this.explore);
       this._sceneService.setExitToSiteButton(this.exitSite);
+
       this.nextStep = this.stepToNextPhoto.bind(this);
       this.prevStep = this.stepToPrevPhoto.bind(this);
       this.defaultPosition = this.defaultPositionInPhotoMode.bind(this);
+
       this._cameraController.setControlsForPhotoMode(this.nav);
       this._cameraController.setControlsForBookshelfMode(this.bottomTop);
     }, 300)
@@ -100,45 +102,47 @@ export class AboutComponent implements AfterViewInit, OnInit{
     {
       if (this.exit.nativeElement.classList.contains('dn'))
       {
-        this._sceneService.onClick($event)
+        this._sceneService.onClick($event);
       }
     }
     else
     {
-      this.toFullScreen()
-      this.onResize()
+      this.toFullScreen();
+      this.onResize();
     }
   }
 
   public toFullScreen(): void {
-    this.isThree = true
-    this.canvasRef.nativeElement.style.display = 'block'
-    this.canvasRef.nativeElement.style.position = 'fixed'
-    this.canvasRef.nativeElement.style.top = '0'
-    this.canvasRef.nativeElement.style.left = '0'
-    this.canvasRef.nativeElement.style.width = '100%'
-    this.canvasRef.nativeElement.style.height = '100%'
-    this.canvasRef.nativeElement.style.zIndex = '100'
-    this.canvasRef.nativeElement.classList.remove('dn')
-    this.canvasRef.nativeElement.classList.add('fullScreen')
-    this._displayController.startThreeExp()
-    this.exitSite.nativeElement.classList.remove('dn')
-    this.onResize(this.size)
+    this._sceneService.setStatus(true);
+    this.isThree = true;
+    this.canvasRef.nativeElement.style.display = 'block';
+    this.canvasRef.nativeElement.style.position = 'fixed';
+    this.canvasRef.nativeElement.style.top = '0';
+    this.canvasRef.nativeElement.style.left = '0';
+    this.canvasRef.nativeElement.style.width = '100%';
+    this.canvasRef.nativeElement.style.height = '100%';
+    this.canvasRef.nativeElement.style.zIndex = '100';
+    this.canvasRef.nativeElement.classList.remove('dn');
+    this.canvasRef.nativeElement.classList.add('fullScreen');
+    this._displayController.startThreeExp();
+    this.exitSite.nativeElement.classList.remove('dn');
+    this.onResize(this.size);
   }
 
   public toSite(): void {
-    this.isThree = false
+    this._sceneService.setStatus(false);
+    this.isThree = false;
     this.canvasRef.nativeElement.style.display = 'none';
-    this.exitSite.nativeElement.classList.add('dn')
-    this._displayController.endThreeExp()
+    this.exitSite.nativeElement.classList.add('dn');
+    this._displayController.endThreeExp();
   }
 
   public onResize(size?: any): void {
-    this._sceneService.onResize(size)
+    this._sceneService.onResize(size);
   }
 
   public doBackMove(): void {
-    this._sceneService.doBackMove()
+    this._sceneService.doBackMove();
   }
 
   public stepToNextPhoto(): void {

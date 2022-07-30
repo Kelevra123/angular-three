@@ -6,11 +6,8 @@ import { AppComponent } from './app.component';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { HeaderComponent } from './components/header/header.component';
 import { AboutComponent } from './components/about/about.component';
-import { TableCanvasComponent } from './components/canvas-members/table-canvas/table-canvas.component';
 import { LoadingService } from "./loading.service";
 import { SceneService } from "./scene.service";
-import { WallsCanvasComponent } from './components/canvas-members/walls-canvas/walls-canvas.component';
-import { CurtainsCanvasComponent } from './components/canvas-members/curtains-canvas/curtains-canvas.component';
 import { ResizeService } from "./resize.service";
 import { CameraControllerService } from "./cameraController.service";
 import { ExitButtonComponent } from './components/ui/exit-button/exit-button.component';
@@ -35,9 +32,6 @@ import { DisplayControllerService } from "./displayController.service";
     WrapperComponent,
     HeaderComponent,
     AboutComponent,
-    TableCanvasComponent,
-    WallsCanvasComponent,
-    CurtainsCanvasComponent,
     ExitButtonComponent,
     ArrowsNavigationComponent,
     BottomTopNavigationComponent,

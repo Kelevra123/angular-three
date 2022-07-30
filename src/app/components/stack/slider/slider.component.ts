@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { faCircleLeft, faCircleRight, faPauseCircle, faPlayCircle } from "@fortawesome/free-solid-svg-icons";
 import { LoadingService } from "../../../loading.service";
+import { DeviceDetectorService } from "ngx-device-detector";
 
 
 @Component({
@@ -58,6 +59,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   constructor(
     private _loadingService: LoadingService,
+    private _deviceController: DeviceDetectorService
   ) {
     this._loadingService.setListener(this);
   }
@@ -71,8 +73,6 @@ export class SliderComponent implements OnInit, AfterViewInit {
   }
 
   public onSceneLoad(isDesktop: boolean): void {
-
-    console.log('sd')
     this.slides = this.slidesHolder.nativeElement.children;
     this.descriptions = this.descriptionsHolder.nativeElement.children;
     this.stepAngle = 2*Math.PI / this.slides.length;
@@ -80,7 +80,7 @@ export class SliderComponent implements OnInit, AfterViewInit {
       this.slider(this.circularSlider.nativeElement, 2000, 15, 600, 5000)
     }
     else {
-      this.slider(this.circularSlider.nativeElement, 1000, 15, 600, 5000)
+      this.slider(this.circularSlider.nativeElement, 2000, 15, 600, 5000)
     }
   }
 
@@ -156,8 +156,8 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
     this.descriptionsHolder.nativeElement.style.height = r/2 - r*this.slideSize + 20 + 'px';
 
     this.slidesSize                        = Math.min( 2*radius*this.slideSize, this.stepAngle*radius*( 1 - this.slideSize ) - 50 );
-    this.descriptionsHolder.nativeElement.style.fontSize = window.innerHeight < window.innerWidth ? '1.2vh'
-      :  '1.2vw';
+    // this.descriptionsHolder.nativeElement.style.fontSize = window.innerHeight < window.innerWidth ? '1.2vh'
+    //   :  '1.2vw';
     for( let i = 0; i < this.slides.length; i++ ) {
       this.slides[i].style.width = this.slides[i].style.height = this.slidesSize + 'px';
     };
@@ -248,7 +248,7 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
     let x = this.currentSlide;
 
     this.descriptions[x].classList.remove( 'descriptions__item_visible' );
-    this.slides[x].classList.remove( 'slides-holder__item_active' )
+    this.slides[x].classList.remove( 'slides-holder__item_active' );
     this.slides[x].style.height = this.slides[x].style.width = this.slidesSize + 'px';
 
   };

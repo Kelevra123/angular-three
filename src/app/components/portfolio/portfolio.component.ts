@@ -40,17 +40,16 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
   }
 
   onClick(id: number) {
-    const box = this.children[id].firstChild
-    console.log(this.children)
-    if (this.children[id].classList.contains('port-active'))
-    {
-      this.children[id].classList.remove('port-active')
-      box.classList.add('port-card-hover')
-    }
-    else
-    {
-      this.children[id].classList.add('port-active')
-      box.classList.remove('port-card-hover')
-    }
+    // const box = this.children[id].firstChild
+    // if (this.children[id].classList.contains('port-active'))
+    // {
+    //   this.children[id].classList.remove('port-active')
+    //   box.classList.add('port-card-hover')
+    // }
+    // else
+    // {
+    //   this.children[id].classList.add('port-active')
+    //   box.classList.remove('port-card-hover')
+    // }
   }
 }

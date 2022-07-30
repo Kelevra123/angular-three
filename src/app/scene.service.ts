@@ -73,6 +73,7 @@ export class SceneService {
 
   //Material Container
   private materialContainer: any = {};
+  private status: boolean = false;
 
   public setTriggerActive(trigger: string | undefined): void {
     this.triggerActive = trigger;
@@ -88,6 +89,10 @@ export class SceneService {
 
   setExitToSiteButton(exitSite: ElementRef) {
     this.exitSiteButton = exitSite
+  }
+
+  public setStatus(isStatus: boolean): void {
+    this.status = isStatus;
   }
 
   constructor(
@@ -195,9 +200,14 @@ export class SceneService {
     this.control.enablePan = this.enablePan;
     this.control.minAzimuthAngle = this.minAzimuthAngle;
     this.control.maxAzimuthAngle = this.maxAzimuthAngle;
-    this.control.minPolarAngle = this.minPolarAngle
+    this.control.minPolarAngle = this.minPolarAngle;
     this.control.maxPolarAngle = this.maxPolarAngle;
-    this._cameraController.setControls(this.control)
+    this._cameraController.setControls(this.control);
+
+    if (this.exploreButton) {
+      // this.exploreButton.nativeElement.style.visibility = 'visible';
+      this.exploreButton.nativeElement.classList.add('visible');
+    }
 
     this.startRenderingLoop();
   }
@@ -322,35 +332,32 @@ export class SceneService {
   private startRenderingLoop() {
     //* Renderer
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true });
-    this.renderer.setPixelRatio(1);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
-    // this.renderer.outputEncoding = THREE.sRGBEncoding
-
-    console.log(this.exploreButton)
-    if (this.exploreButton) {
-      // this.exploreButton.nativeElement.style.visibility = 'visible';
-      this.exploreButton.nativeElement.classList.add('visible')
-    }
+    this.renderer.render(this.scene, this.camera);
 
     //Create meshes array
 
     let self: SceneService = this;
-    (function tick() {
-      self.raycaster.setFromCamera(self.mouse, self.camera);
+      function tick() {
+        if (self.status)
+        {
+          self.raycaster.setFromCamera(self.mouse, self.camera);
 
-      self.mainTableIntersects = self.raycaster.intersectObjects(self.mainTable);
-      self.photoIntersects = self.raycaster.intersectObjects(self.photo);
-      self.bookshelfIntersects = self.raycaster.intersectObjects(self.bookshelf);
+          self.mainTableIntersects = self.raycaster.intersectObjects(self.mainTable);
+          self.photoIntersects = self.raycaster.intersectObjects(self.photo);
+          self.bookshelfIntersects = self.raycaster.intersectObjects(self.bookshelf);
 
-      self.backToStandardMesh();
-      self.triggerMeshByCursor();
+          self.backToStandardMesh();
+          self.triggerMeshByCursor();
 
-      if (self.control.enabled) {
-        self.control.update();
-      }
-
-      requestAnimationFrame(tick);
-      self.renderer.render(self.scene, self.camera);
-    }());
-  }
+          if (self.control.enabled) {
+            self.control.update();
+          }
+          self.renderer.render(self.scene, self.camera);
+        }
+        requestAnimationFrame(tick);
+      };
+      tick();
+    }
 }
