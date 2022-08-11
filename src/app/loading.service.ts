@@ -18,6 +18,7 @@ export class LoadingService {
   private meshContainer: Array<THREE.Object3D> = [];
   private materialContainer: SavedMaterial | any = {};
   private videoContainer: any = {};
+  private loadingListener: any;
 
   //Screens
   loadingScreen: any;
@@ -38,7 +39,7 @@ export class LoadingService {
     () => {
       this.sceneReady();
     },
-    (itemUri: string, itemLoaded: number, total: number) => {},
+    (itemUri: string, itemLoaded: number, total: number) => this.showLoadingInfo(itemLoaded, total),
   );
 
   private readonly _textureLoader: any = null;
@@ -65,6 +66,10 @@ export class LoadingService {
     this.loadingScreen = loading;
   }
 
+  setLoadingListener(loadingView: any): void {
+    this.loadingListener = loadingView;
+  }
+
   setViewScreen(view: ElementRef) {
     this.viewScreen = view;
   }
@@ -81,6 +86,13 @@ export class LoadingService {
     this._dracoLoader = new DRACOLoader();
     this._dracoLoader.setDecoderPath('../../assets/draco/');
     this._gltfLoader.setDRACOLoader(this._dracoLoader);
+  }
+
+  public showLoadingInfo(loaded: number, total: number): void {
+    if (this.loadingListener)
+    {
+      this.loadingListener.setView(loaded, total)
+    }
   }
 
   public start(isDesktop: boolean) : void {

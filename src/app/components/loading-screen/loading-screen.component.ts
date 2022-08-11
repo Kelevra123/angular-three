@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { LoadingService } from "../../loading.service";
 
 @Component({
   selector: '.loading-screen',
@@ -7,10 +8,21 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class LoadingScreenComponent implements OnInit {
+  public loaded: number = 0;
+  public total: number = 0;
 
-  constructor() { }
+  constructor(
+    private readonly _loadingService: LoadingService
+  ) {
+    this._loadingService.setLoadingListener(this);
+  }
 
   ngOnInit(): void {
+  }
+
+  public setView(loaded: number, total: number): void {
+    this.loaded = loaded;
+    this.total = total;
   }
 
 }
