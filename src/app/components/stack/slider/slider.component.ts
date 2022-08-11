@@ -66,7 +66,6 @@ export class SliderComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.windowWidth = window.innerWidth
-    console.log('sd')
   }
 
   ngAfterViewInit(): void {
@@ -129,7 +128,6 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
       let radius,
         w = this.wrapper.nativeElement.parentNode.getBoundingClientRect().width,
         h = this.wrapper.nativeElement.parentNode.getBoundingClientRect().height;
-        console.log(w, h)
 
       2*h <= w ? radius = h*this.sliderSize
         : radius = ( w/2 )*this.sliderSize;
@@ -138,7 +136,6 @@ public slider( newSlider: any, sliderSize: number, slideSize: number, animationD
   };
 
   setSize( radius: any ) {
-    console.log(radius)
 
     this.wrapper.nativeElement.style.width  = 2*radius + 'px';
     this.wrapper.nativeElement.style.height = radius + 'px';

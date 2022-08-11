@@ -36,7 +36,6 @@ export class LoadingService {
 
   private _loadingManager = new THREE.LoadingManager(
     () => {
-      console.log('ready')
       this.sceneReady();
     },
     (itemUri: string, itemLoaded: number, total: number) => {},
